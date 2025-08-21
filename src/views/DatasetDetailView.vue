@@ -13,9 +13,9 @@
               />
             </div>
           </div>
-          <div class="col-lg-7">
+          <div class="col-lg-8">
             <div class="dataset-info">
-              <div class="category-label" :class="getCategoryClass(dataset.category_id)">
+              <div class="category-label mt-3" :class="getCategoryClass(dataset.category_id)">
                 {{ getCategoryName(dataset.category_id) }}
               </div>
               <h1 class="dataset-title">{{ dataset.title }}</h1>
@@ -41,22 +41,6 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3">
-            <div class="download-panel">
-              <button class="btn-download" @click="downloadDataset">
-                <i class="bx bx-download"></i>
-                Download Dataset
-              </button>
-              <button class="btn-preview" @click="previewDataset">
-                <i class="bx bx-show"></i>
-                Preview Data
-              </button>
-              <button class="btn-share" @click="shareDataset">
-                <i class="bx bx-share-alt"></i>
-                Share Dataset
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -66,46 +50,7 @@
       <div class="container">
         <div class="row">
           <!-- Left Content -->
-          <div class="col-lg-8">
-            <!-- Dataset Information -->
-            <div class="dataset-section" data-aos="fade-up">
-              <div class="section-title">
-                <h3><i class="bx bx-info-circle"></i> Informasi Dataset</h3>
-              </div>
-              <div class="info-grid">
-                <div class="info-item">
-                  <h5>Kategori</h5>
-                  <span class="category-badge" :class="getCategoryClass(dataset.category_id)">
-                    {{ getCategoryName(dataset.category_id) }}
-                  </span>
-                </div>
-                <div class="info-item">
-                  <h5>Organisasi</h5>
-                  <p>{{ getOrganizationName(dataset.organization_id) }}</p>
-                </div>
-                <div class="info-item">
-                  <h5>Format File</h5>
-                  <div class="format-list">
-                    <span v-for="format in dataset.formats" :key="format" class="format-badge">
-                      {{ format.toUpperCase() }}
-                    </span>
-                  </div>
-                </div>
-                <div class="info-item">
-                  <h5>Ukuran File</h5>
-                  <p>{{ dataset.file_size }}</p>
-                </div>
-                <div class="info-item">
-                  <h5>Lisensi</h5>
-                  <p>{{ dataset.license }}</p>
-                </div>
-                <div class="info-item">
-                  <h5>Terakhir Diperbarui</h5>
-                  <p>{{ formatDate(dataset.updated_at) }}</p>
-                </div>
-              </div>
-            </div>
-
+          <div class="col-lg-12">
             <!-- Description -->
             <div class="dataset-section" data-aos="fade-up" data-aos-delay="100">
               <div class="section-title">
@@ -153,44 +98,7 @@
           </div>
 
           <!-- Right Sidebar -->
-          <div class="col-lg-4">
-            <!-- Quick Stats -->
-            <div class="sidebar-widget" data-aos="fade-up">
-              <h4>Statistik</h4>
-              <div class="stats-container">
-                <div class="stat-box">
-                  <div class="stat-number">{{ dataset.downloads.toLocaleString() }}</div>
-                  <div class="stat-label">Downloads</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-number">{{ dataset.views.toLocaleString() }}</div>
-                  <div class="stat-label">Views</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-number">{{ dataset.total_rows.toLocaleString() }}</div>
-                  <div class="stat-label">Total Rows</div>
-                </div>
-                <div class="stat-box">
-                  <div class="stat-number">{{ dataset.file_size }}</div>
-                  <div class="stat-label">File Size</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Download Options -->
-            <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="100">
-              <h4>Format Download</h4>
-              <div class="download-list">
-                <div v-for="format in dataset.formats" :key="format" class="download-item">
-                  <button class="download-btn" @click="downloadFormat(format)">
-                    <i class="bx bx-download"></i>
-                    <span class="format-name">{{ format.toUpperCase() }}</span>
-                    <span class="file-size">{{ getFormatSize(format) }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
+          <div class="col-lg-12">
             <!-- Related Datasets -->
             <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="200">
               <h4>Dataset Terkait</h4>
@@ -203,25 +111,6 @@
                     <h6>{{ related.title }}</h6>
                     <span class="downloads">{{ related.downloads }} downloads</span>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Contact Info -->
-            <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="300">
-              <h4>Kontak</h4>
-              <div class="contact-list">
-                <div class="contact-item">
-                  <i class="bx bx-building"></i>
-                  <span>{{ getOrganizationName(dataset.organization_id) }}</span>
-                </div>
-                <div class="contact-item">
-                  <i class="bx bx-envelope"></i>
-                  <span>{{ dataset.contact_email }}</span>
-                </div>
-                <div class="contact-item">
-                  <i class="bx bx-phone"></i>
-                  <span>{{ dataset.contact_phone }}</span>
                 </div>
               </div>
             </div>
@@ -421,8 +310,8 @@ export default {
 
 /* Dataset Hero Section */
 .dataset-hero {
-  padding: 80px 0;
-  background: linear-gradient(45deg, #37517e, #47b2e4);
+  padding-top: 120px !important;
+  background: linear-gradient(135deg, #040677 0%, #040677 100%);
   color: white;
 }
 
@@ -465,6 +354,7 @@ export default {
 }
 
 .dataset-title {
+  color: #ffffff;
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 20px;
