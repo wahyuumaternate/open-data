@@ -34,7 +34,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/dataset/:id',
+      path: '/dataset/:slug',
       name: 'dataset-detail',
       component: DatasetDetailView,
       props: true,
@@ -43,7 +43,7 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      redirect: '/',
+      component: () => import('../views/NotFoundView.vue'),
     },
   ],
   scrollBehavior(to, from, savedPosition) {
