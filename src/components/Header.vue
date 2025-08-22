@@ -29,7 +29,7 @@
               <li>
                 <router-link to="/datasets">Dataset</router-link>
               </li>
-              <li><a href="#mapset" @click.prevent>Mapset</a></li>
+              <li><router-link to="/mapsets">Mapsets</router-link></li>
             </ul>
           </li>
           <li>

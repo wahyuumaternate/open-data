@@ -1,7 +1,7 @@
 <template>
   <div class="datasets-view">
     <!-- Dataset Hero Section -->
-    <section class="dataset-hero section dark-background pt-5">
+    <section class="dataset-hero section pt-5">
       <div class="container mt-5">
         <div class="row">
           <div class="col-lg-12 text-center" data-aos="fade-up">
@@ -338,7 +338,7 @@ export default {
   data() {
     return {
       // API Configuration
-      apiUrl: 'http://127.0.0.1:8000/api/v1/',
+      apiUrl: import.meta.env.VITE_API_URL,
 
       // Loading and Error States
       loading: false,
@@ -816,5 +816,23 @@ export default {
     width: 100%;
     margin-bottom: 0.5rem;
   }
+}
+.dataset-hero {
+  background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
+  color: white;
+  padding: 120px 0 80px !important;
+  position: relative;
+  overflow: hidden;
+}
+.dataset-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>')
+    repeat;
+  opacity: 0.3;
 }
 </style>

@@ -1,4 +1,4 @@
-.table-note { padding: 15px; background: #f8f9fa; text-align: center; color: #6c757d; }
+
 <template>
   <div class="dataset-detail">
     <!-- Loading State with Skeleton -->
@@ -266,7 +266,7 @@ export default {
   data() {
     return {
       // API Configuration
-      apiUrl: 'http://127.0.0.1:8000/api/v1/',
+      apiUrl: import.meta.env.VITE_API_URL,
 
       // Loading and Error States
       loading: false,
@@ -365,6 +365,8 @@ export default {
       })
     }
   },
+
+
 
   methods: {
     async fetchDataset() {

@@ -30,7 +30,7 @@
               maupun kebutuhan sehari-hari.
             </small>
           </p>
-          <div class="d-flex align-items-center position-relative">
+          <!-- <div class="d-flex align-items-center position-relative">
             <input
               type="text"
               class="form-control"
@@ -41,7 +41,7 @@
               style="padding-left: 2rem"
             />
             <i class="bi bi-search position-absolute ms-2"></i>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

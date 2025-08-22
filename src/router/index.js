@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DatasetDetailView from '@/views/DatasetDetailView.vue'
-
+import OraganizationsView from '@/views/OrganizationsView.vue'
+import DatasetsView from '@/views/DatasetsView.vue'
+import MapsetsView from '@/views/MapsetsView.vue'
+import MapsetDetailView from '@/views/MapsetDetailView.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -18,10 +21,27 @@ const router = createRouter({
     {
       path: '/datasets',
       name: 'datasets',
-      component: () => import('../views/DatasetsView.vue'),
+      component: DatasetsView,
       meta: {
         title: 'Dataset - Open Data Ternate',
         description: 'Jelajahi koleksi dataset terbuka Pemerintah Kota Ternate',
+      },
+    },
+    {
+      path: '/mapsets',
+      name: 'mapsets',
+      component: MapsetsView,
+      meta: {
+        title: 'Mapsets - Open Data Kota Ternate',
+      },
+    },
+    {
+      path: '/mapset/:identifier',
+      name: 'mapset-detail',
+      component: MapsetDetailView,
+      props: true, // Pass route params sebagai props ke component
+      meta: {
+        title: 'Detail Mapset - Open Data Kota Ternate',
       },
     },
     {
@@ -34,10 +54,23 @@ const router = createRouter({
       },
     },
     {
+      path: '/organizations',
+      name: 'organizations',
+      component: OraganizationsView,
+      meta: {
+        title: 'organizations - Open Data Ternate',
+        description: 'Informasi tentang portal Open Data Ternate dan kontak',
+      },
+    },
+    {
       path: '/dataset/:slug',
       name: 'dataset-detail',
       component: DatasetDetailView,
       props: true,
+      meta: {
+        title: 'Detail Dataset - Open Data Ternate',
+        description: 'Lihat detail informasi dataset di portal Open Data Ternate.',
+      },
     },
     // Catch all 404 - temporary simple version
     {
