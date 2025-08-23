@@ -369,13 +369,10 @@ export default {
           throw new Error('Identifier parameter tidak ditemukan di URL')
         }
 
-        console.log('Fetching mapset with identifier:', identifier)
-
         const response = await axios.get(`${this.apiUrl}mapsets/${identifier}`)
 
         if (response.data.success) {
           this.mapset = response.data.data.mapset
-          console.log('Mapset loaded:', this.mapset)
 
           // Initialize map after data is loaded
           this.$nextTick(() => {
@@ -437,8 +434,6 @@ export default {
 
         // Fit map to bounds
         this.fitMapToBounds()
-
-        console.log('Map initialized successfully')
       } catch (error) {
         console.error('Error initializing map:', error)
       }

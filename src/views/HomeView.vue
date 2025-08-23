@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     handleCategorySelected(category) {
-      console.log('Category selected:', category.name)
       // Navigate to datasets page with category filter
       this.$router.push({
         name: 'datasets',

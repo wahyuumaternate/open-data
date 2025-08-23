@@ -387,7 +387,6 @@ export default {
 
     viewOrganization(organization) {
       // Navigate to organization detail page using slug
-      console.log('organization')
       this.$router.push(`/organization/${organization.slug}`)
     },
   },

@@ -1,8 +1,7 @@
 <template>
   <!-- Hero Section dengan Typing Animation -->
   <section id="hero" class="hero section dark-background pt-5">
-    <!-- ✅ Fixed path -->
-    <!-- <img src="../assets/img/hero-bg-2.JPG" alt="" class="hero-bg" /> -->
+    <!-- <img src="../assets/img/hero-bg-3.JPG" alt="" class="hero-bg" /> -->
 
     <div class="container mt-5">
       <div class="row gy-4 justify-content-between">
@@ -11,7 +10,6 @@
           data-aos="zoom-out"
           data-aos-delay="100"
         >
-          <!-- ✅ Fixed path -->
           <img src="../assets/img/hero.png" class="img-fluid animated" alt="" />
         </div>
 

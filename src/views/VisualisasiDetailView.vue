@@ -624,8 +624,6 @@ export default {
 
         // Create chart based on type
         this.updateChart()
-
-        console.log('Chart initialized successfully')
       } catch (error) {
         console.error('Error initializing chart:', error)
       }
@@ -1000,7 +998,6 @@ export default {
             url: window.location.href,
           })
           .catch((error) => {
-            console.log('Error sharing:', error)
             this.fallbackShare()
           })
       } else {

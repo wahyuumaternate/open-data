@@ -384,8 +384,6 @@ export default {
       this.error = null
 
       try {
-        console.log('Fetching infografis...')
-
         const params = {
           page: page,
           per_page: 12,
@@ -413,14 +411,10 @@ export default {
           this.availableTopics = data.filters?.topics || {}
           this.popularTags = data.filters?.popular_tags || {}
           this.stats = data.stats || {}
-
-          console.log('Infografis loaded:', this.infografis.length)
         } else {
           throw new Error(response.data.message || 'Failed to fetch infografis')
         }
       } catch (error) {
-        console.error('Error fetching infografis:', error)
-
         if (error.response?.status === 404) {
           this.error = 'Endpoint infografis tidak ditemukan'
         } else if (error.code === 'NETWORK_ERROR' || error.message.includes('Network')) {

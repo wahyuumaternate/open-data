@@ -384,8 +384,6 @@ export default {
       this.error = null
 
       try {
-        console.log('Fetching mapsets...')
-
         const params = {
           page: page,
           per_page: 12,
@@ -407,8 +405,6 @@ export default {
           this.mapsets = response.data.data.mapsets || []
           this.pagination = response.data.data.pagination || {}
           this.availableTopics = response.data.data.filters.available_topics || []
-
-          console.log('Mapsets loaded:', this.mapsets.length)
         } else {
           throw new Error(response.data.message || 'Failed to fetch mapsets')
         }

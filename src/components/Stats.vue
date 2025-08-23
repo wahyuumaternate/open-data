@@ -168,12 +168,10 @@ export default {
       this.error = null
 
       try {
-        console.log('Fetching statistics from API...')
         const response = await axios.get(`${this.apiUrl}total-data`)
 
         if (response.data.success) {
           this.statsData = response.data.data
-          console.log('Statistics loaded successfully:', this.statsData)
 
           // Trigger counter animation after data is loaded
           this.$nextTick(() => {

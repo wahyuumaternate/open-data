@@ -545,7 +545,6 @@ export default {
           throw new Error(response.data.message || 'Failed to fetch datasets')
         }
       } catch (error) {
-        console.error('Error fetching datasets:', error)
         this.error = 'Gagal memuat dataset. Silakan coba lagi.'
         this.datasets = []
       } finally {
@@ -633,7 +632,7 @@ export default {
     },
 
     downloadDataset(dataset) {
-      console.log('Download dataset:', dataset)
+      console.log('Download dataset:')
       // Handle download
     },
   },

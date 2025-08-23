@@ -570,17 +570,14 @@ export default {
 
       try {
         const slug = this.$route.params.slug
-        console.log('Fetching organization with slug:', slug)
 
         if (!slug) {
           throw new Error('Slug parameter is missing')
         }
 
         const apiUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl
-        console.log('API URL:', `${apiUrl}/organizations/${slug}`)
 
         const response = await axios.get(`${apiUrl}/organizations/${slug}`)
-        console.log('API Response:', response.data)
 
         if (response.data.success) {
           this.organization = response.data.data.organization
@@ -591,8 +588,6 @@ export default {
             visualisasi: [],
           }
           this.statistics = response.data.data.statistics || {}
-
-          console.log('Organization loaded:', this.organization)
         } else {
           throw new Error(response.data.message || 'Failed to fetch organization')
         }

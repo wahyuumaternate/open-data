@@ -1,4 +1,3 @@
-
 <template>
   <div class="dataset-detail">
     <!-- Loading State with Skeleton -->
@@ -366,8 +365,6 @@ export default {
     }
   },
 
-
-
   methods: {
     async fetchDataset() {
       this.loading = true
@@ -383,13 +380,10 @@ export default {
           throw new Error('Slug parameter tidak ditemukan di URL')
         }
 
-        console.log('Fetching dataset with slug:', slug)
-
         const response = await axios.get(`${this.apiUrl}datasets/${slug}`)
 
         if (response.data.success) {
           this.dataset = response.data.data.dataset
-          console.log('Dataset loaded:', this.dataset)
 
           // Initialize DataTable after data is loaded
           this.$nextTick(() => {
@@ -478,25 +472,18 @@ export default {
     },
 
     initDataTable() {
-      console.log('Initializing DataTable...')
-      console.log('Has preview data:', this.hasPreviewData)
-      console.log('Data length:', this.getPreviewData.length)
-
       if (this.hasPreviewData && this.getPreviewData.length > 0) {
         this.$nextTick(() => {
           setTimeout(() => {
             try {
               const tableElement = document.getElementById('datasetPreviewTable')
-              console.log('Table element found:', !!tableElement)
 
               if (tableElement) {
                 // Destroy existing DataTable if exists
                 if ($.fn.DataTable.isDataTable('#datasetPreviewTable')) {
-                  console.log('Destroying existing DataTable')
                   $('#datasetPreviewTable').DataTable().destroy()
                 }
 
-                console.log('Creating new DataTable')
                 // Initialize DataTable with modern styling
                 const dataTable = $('#datasetPreviewTable').DataTable({
                   responsive: true,
@@ -545,8 +532,6 @@ export default {
                     $('.dataTables_wrapper').addClass('modern-datatable')
                   },
                 })
-
-                console.log('DataTable initialized successfully:', dataTable)
               } else {
                 console.error('Table element not found')
               }
@@ -556,7 +541,6 @@ export default {
           }, 500)
         })
       } else {
-        console.log('No data available for DataTable')
       }
     },
   },
