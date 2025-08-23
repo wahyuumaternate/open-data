@@ -175,8 +175,7 @@ export default {
 
 <style>
 .hero {
-  padding-top: 100px !important;
-  padding-bottom: 100px !important;
+  padding: 150px 0 !important;
 }
 .typing-text {
   min-height: 1.2em;
