@@ -27,22 +27,29 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <router-link to="/datasets">Dataset</router-link>
+                <router-link to="/datasets" :class="{ active: $route.name === 'datasets' }"
+                  >Dataset</router-link
+                >
               </li>
-              <li><router-link to="/mapsets">Mapsets</router-link></li>
+              <li>
+                <router-link to="/mapsets" :class="{ active: $route.name === 'mapsets' }"
+                  >Mapsets</router-link
+                >
+              </li>
             </ul>
           </li>
+
+          <li>
+            <router-link to="/visualisasi" :class="{ active: $route.name === 'visualisasi' }">
+              Visualisasi
+            </router-link>
+          </li>
+          <li><a href="#" @click.prevent>Infografis</a></li>
           <li>
             <router-link to="/organizations" :class="{ active: $route.name === 'organizations' }">
               Organisasi
             </router-link>
           </li>
-          <li>
-            <router-link to="/statistics" :class="{ active: $route.name === 'statistics' }">
-              Visualisasi
-            </router-link>
-          </li>
-          <li><a href="#" @click.prevent>Infografis</a></li>
           <li><a href="#" @click.prevent>Topik</a></li>
           <li>
             <router-link to="/about" :class="{ active: $route.name === 'about' }">

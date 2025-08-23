@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DatasetDetailView from '@/views/DatasetDetailView.vue'
-import OraganizationsView from '@/views/OrganizationsView.vue'
+import OrganizationsView from '@/views/OrganizationsView.vue' // Fixed typo: was "OraganizationsView"
+import OrganizationDetailView from '@/views/OrganizationDetailView.vue' // Add this import
 import DatasetsView from '@/views/DatasetsView.vue'
 import MapsetsView from '@/views/MapsetsView.vue'
 import MapsetDetailView from '@/views/MapsetDetailView.vue'
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -39,27 +41,29 @@ const router = createRouter({
       path: '/mapset/:identifier',
       name: 'mapset-detail',
       component: MapsetDetailView,
-      props: true, // Pass route params sebagai props ke component
+      props: true,
       meta: {
         title: 'Detail Mapset - Open Data Kota Ternate',
       },
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      path: '/organizations',
+      name: 'organizations',
+      component: OrganizationsView, // Fixed component name
       meta: {
-        title: 'Tentang - Open Data Ternate',
-        description: 'Informasi tentang portal Open Data Ternate dan kontak',
+        title: 'Organisasi - Open Data Ternate',
+        description:
+          'Daftar Organisasi Perangkat Daerah yang berkontribusi dalam Open Data Ternate',
       },
     },
     {
-      path: '/organizations',
-      name: 'organizations',
-      component: OraganizationsView,
+      path: '/organization/:slug',
+      name: 'organization-detail',
+      component: OrganizationDetailView, // Fixed: was missing import and () =>
+      props: true,
       meta: {
-        title: 'organizations - Open Data Ternate',
-        description: 'Informasi tentang portal Open Data Ternate dan kontak',
+        title: 'Detail Organisasi - Open Data Ternate',
+        description: 'Informasi detail organisasi dan konten yang dipublikasikan',
       },
     },
     {
@@ -72,7 +76,35 @@ const router = createRouter({
         description: 'Lihat detail informasi dataset di portal Open Data Ternate.',
       },
     },
-    // Catch all 404 - temporary simple version
+    {
+      path: '/visualisasi',
+      name: 'visualisasi',
+      component: () => import('@/views/VisualisasiView.vue'),
+      meta: {
+        title: 'Visualisasi Data - Open Data Ternate',
+        description: 'Jelajahi berbagai visualisasi data interaktif di Kota Ternate',
+      },
+    },
+    // {
+    //   path: '/visualisasi/:slug',
+    //   name: 'visualisasi-detail',
+    //   component: () => import('@/views/VisualisasiDetailView.vue'),
+    //   props: true,
+    //   meta: {
+    //     title: 'Detail Visualisasi - Open Data Ternate',
+    //     description: 'Detail visualisasi data interaktif',
+    //   },
+    // },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue'),
+      meta: {
+        title: 'Tentang - Open Data Ternate',
+        description: 'Informasi tentang portal Open Data Ternate dan kontak',
+      },
+    },
+    // Catch all 404
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
@@ -83,14 +115,13 @@ const router = createRouter({
     if (savedPosition) {
       return savedPosition
     } else if (to.hash) {
-      // Safe hash navigation
       try {
         const element = document.querySelector(to.hash)
         if (element) {
           return {
             el: to.hash,
             behavior: 'smooth',
-            top: 80, // Account for fixed header
+            top: 80,
           }
         }
       } catch (e) {
@@ -103,10 +134,8 @@ const router = createRouter({
 
 // Global navigation guard
 router.beforeEach((to, from, next) => {
-  // Update document title
   document.title = to.meta?.title || 'Open Data Ternate'
 
-  // Update meta description
   if (to.meta?.description) {
     let metaDescription = document.querySelector('meta[name="description"]')
     if (metaDescription) {

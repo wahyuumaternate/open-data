@@ -8,28 +8,18 @@
             <div class="hero-content" data-aos="fade-up">
               <h1 class="hero-title">Organisasi</h1>
               <p class="hero-description">
-                Dapatkan daftar Perangkat Daerah (PD) yang berkontribusi dalam membangun ekosistem
-                data yang terbuka dan terpercaya melalui publikasi data di Open Data Ternate.
+                Dapatkan daftar Organisasi Perangkat Daerah (OPD) yang berkontribusi dalam membangun
+                ekosistem data yang terbuka dan terpercaya melalui publikasi data di Open Data
+                Ternate.
               </p>
               <div class="hero-stats" v-if="!loading && stats.total">
-                <div class="stat-item text-white">
+                <div class="stat-item-hero">
                   <i class="bi bi-building"></i>
                   <span>{{ stats.total.toLocaleString('id-ID') }} Organisasi</span>
                 </div>
-                <div class="stat-item text-white">
+                <div class="stat-item-hero">
                   <i class="bi bi-globe"></i>
                   <span>{{ stats.with_website.toLocaleString('id-ID') }} Dengan Website</span>
-                </div>
-              </div>
-              <!-- Hero Stats Skeleton -->
-              <div class="hero-stats" v-if="loading">
-                <div class="stat-item text-white">
-                  <div class="skeleton skeleton-icon"></div>
-                  <div class="skeleton skeleton-text-hero"></div>
-                </div>
-                <div class="stat-item text-white">
-                  <div class="skeleton skeleton-icon"></div>
-                  <div class="skeleton skeleton-text-hero"></div>
                 </div>
               </div>
             </div>
@@ -54,7 +44,7 @@
       </div>
 
       <!-- Search and Filter Section -->
-      <div class="search-filter-section mb-4" v-if="!loading">
+      <div class="search-filter-section mb-4">
         <div class="row align-items-center">
           <div class="col-md-6">
             <div class="search-box">
@@ -94,16 +84,41 @@
         </div>
       </div>
 
-      <!-- Search and Filter Skeleton -->
-      <div class="search-filter-section mb-4" v-if="loading">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <div class="skeleton skeleton-search"></div>
-          </div>
-          <div class="col-md-6">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="skeleton skeleton-result-count"></div>
-              <div class="skeleton skeleton-sort"></div>
+      <!-- Loading State with Skeleton -->
+      <div v-if="loading" class="organizations-grid">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6" v-for="n in 12" :key="n">
+            <div class="organization-card skeleton-card">
+              <!-- Skeleton Logo -->
+              <div class="org-logo-container">
+                <div class="skeleton skeleton-logo"></div>
+              </div>
+
+              <!-- Skeleton Content -->
+              <div class="org-content">
+                <!-- Skeleton Name -->
+                <div class="skeleton skeleton-name mb-3"></div>
+
+                <!-- Skeleton Stats -->
+                <div class="org-stats">
+                  <div class="skeleton-stat-item">
+                    <div class="skeleton skeleton-icon"></div>
+                    <div class="skeleton skeleton-number"></div>
+                  </div>
+                  <div class="skeleton-stat-item">
+                    <div class="skeleton skeleton-icon"></div>
+                    <div class="skeleton skeleton-number"></div>
+                  </div>
+                  <div class="skeleton-stat-item">
+                    <div class="skeleton skeleton-icon"></div>
+                    <div class="skeleton skeleton-number"></div>
+                  </div>
+                  <div class="skeleton-stat-item">
+                    <div class="skeleton skeleton-icon"></div>
+                    <div class="skeleton skeleton-number"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -126,7 +141,11 @@
             v-for="organization in paginatedOrganizations"
             :key="organization.id"
           >
-            <div class="organization-card">
+            <div
+              class="organization-card"
+              @click="viewOrganization(organization)"
+              :title="`Lihat detail ${organization.name}`"
+            >
               <!-- Logo -->
               <div class="org-logo-container">
                 <img
@@ -198,45 +217,6 @@
             </li>
           </ul>
         </nav>
-      </div>
-
-      <!-- Skeleton Loading for Organizations Grid -->
-      <div v-if="loading" class="organizations-grid">
-        <div class="row g-4">
-          <div class="col-lg-4 col-md-6" v-for="n in 12" :key="`skeleton-${n}`">
-            <div class="organization-card skeleton-card">
-              <!-- Logo Skeleton -->
-              <div class="org-logo-container">
-                <div class="skeleton skeleton-logo"></div>
-              </div>
-
-              <!-- Content Skeleton -->
-              <div class="org-content">
-                <div class="skeleton skeleton-title mb-3"></div>
-
-                <!-- Stats Skeleton -->
-                <div class="org-stats">
-                  <div class="stat-item">
-                    <div class="skeleton skeleton-stat-icon"></div>
-                    <div class="skeleton skeleton-stat-text"></div>
-                  </div>
-                  <div class="stat-item">
-                    <div class="skeleton skeleton-stat-icon"></div>
-                    <div class="skeleton skeleton-stat-text"></div>
-                  </div>
-                  <div class="stat-item">
-                    <div class="skeleton skeleton-stat-icon"></div>
-                    <div class="skeleton skeleton-stat-text"></div>
-                  </div>
-                  <div class="stat-item">
-                    <div class="skeleton skeleton-stat-icon"></div>
-                    <div class="skeleton skeleton-stat-text"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -404,6 +384,12 @@ export default {
     handleImageError(event) {
       event.target.src = '/assets/img/default-organization.png'
     },
+
+    viewOrganization(organization) {
+      // Navigate to organization detail page using slug
+      console.log('organization')
+      this.$router.push(`/organization/${organization.slug}`)
+    },
   },
 }
 </script>
@@ -412,90 +398,6 @@ export default {
 .organizations-simple {
   background-color: #f8f9fa;
   min-height: 100vh;
-}
-
-/* Skeleton Loading Styles */
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
-  border-radius: 4px;
-}
-
-@keyframes skeleton-loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-/* Hero Section Skeleton */
-.skeleton-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-}
-
-.skeleton-text-hero {
-  width: 120px;
-  height: 16px;
-}
-
-/* Search Filter Skeleton */
-.skeleton-search {
-  height: 38px;
-  width: 100%;
-  border-radius: 6px;
-}
-
-.skeleton-result-count {
-  width: 150px;
-  height: 16px;
-}
-
-.skeleton-sort {
-  width: 100px;
-  height: 32px;
-  border-radius: 4px;
-}
-
-/* Organization Card Skeleton */
-.skeleton-card {
-  animation: skeleton-pulse 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes skeleton-pulse {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.8;
-  }
-}
-
-.skeleton-logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
-}
-
-.skeleton-title {
-  width: 80%;
-  height: 16px;
-  margin: 0 auto;
-}
-
-.skeleton-stat-icon {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-}
-
-.skeleton-stat-text {
-  width: 20px;
-  height: 12px;
 }
 
 /* Hero Section */
@@ -633,6 +535,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .organization-card:hover {
@@ -688,7 +591,21 @@ export default {
 }
 
 .stat-item i {
-  font-size: 0.9rem;
+  font-size: 20px;
+  color: #0d6efd;
+}
+.stat-item-hero {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.stat-item-hero i {
+  font-size: 20px;
+  color: #fff;
 }
 
 /* Pagination */
@@ -711,6 +628,68 @@ export default {
 .page-item.active .page-link {
   background-color: #0d6efd;
   border-color: #0d6efd;
+}
+
+/* Loading and Error States */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Skeleton Loading Styles */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  pointer-events: none;
+}
+
+.skeleton-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+.skeleton-name {
+  height: 20px;
+  width: 85%;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.skeleton-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  justify-content: center;
+}
+
+.skeleton-icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.skeleton-number {
+  width: 20px;
+  height: 12px;
+  border-radius: 2px;
 }
 
 /* Empty State */
@@ -771,11 +750,6 @@ export default {
   .org-logo {
     max-width: 60px;
     max-height: 60px;
-  }
-
-  .skeleton-logo {
-    width: 60px;
-    height: 60px;
   }
 
   .org-name {
