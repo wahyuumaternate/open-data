@@ -1384,40 +1384,15 @@ export default {
   font-size: 11px;
   color: #6c757d;
 }
-
-/* Category Colors */
-.category-ekonomi {
-  background: rgba(255, 193, 7, 0.3);
-}
-.category-infrastruktur {
-  background: rgba(111, 66, 193, 0.3);
-}
-.category-kemiskinan {
-  background: rgba(220, 53, 69, 0.3);
-}
-.category-kependudukan {
-  background: rgba(32, 201, 151, 0.3);
-}
-.category-kesehatan {
-  background: rgba(71, 178, 228, 0.3);
-}
-.category-lingkungan {
-  background: rgba(25, 135, 84, 0.3);
-}
-.category-pariwisata {
-  background: rgba(253, 126, 20, 0.3);
-}
-.category-pemerintah {
-  background: rgba(108, 117, 125, 0.3);
-}
-.category-pendidikan {
-  background: rgba(13, 202, 240, 0.3);
-}
-.category-sosial {
-  background: rgba(232, 62, 140, 0.3);
-}
-.category-default {
-  background: rgba(55, 81, 126, 0.3);
+/* Semua kategori pakai glass effect */
+[class^='category-'] {
+  background: rgba(255, 255, 255, 0.1); /* transparan putih */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* untuk Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff; /* teks putih biar kontras */
+  padding: 8px 12px;
 }
 
 /* Alert Styling */

@@ -85,16 +85,16 @@ const router = createRouter({
         description: 'Jelajahi berbagai visualisasi data interaktif di Kota Ternate',
       },
     },
-    // {
-    //   path: '/visualisasi/:slug',
-    //   name: 'visualisasi-detail',
-    //   component: () => import('@/views/VisualisasiDetailView.vue'),
-    //   props: true,
-    //   meta: {
-    //     title: 'Detail Visualisasi - Open Data Ternate',
-    //     description: 'Detail visualisasi data interaktif',
-    //   },
-    // },
+    {
+      path: '/visualisasi/:slug',
+      name: 'visualisasi-detail',
+      component: () => import('@/views/VisualisasiDetailView.vue'),
+      props: true,
+      meta: {
+        title: 'Detail Visualisasi - Open Data Ternate',
+        description: 'Detail visualisasi data interaktif',
+      },
+    },
     {
       path: '/about',
       name: 'about',

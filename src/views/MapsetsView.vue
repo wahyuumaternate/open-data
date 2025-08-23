@@ -850,7 +850,8 @@ export default {
   border-radius: 15px;
   font-size: 11px;
   font-weight: 600;
-  color: white;
+  background-color: #1e40af;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 10px;
@@ -887,40 +888,15 @@ export default {
 .list-meta i {
   color: #47b2e4;
 }
-
-/* Category Colors */
-.category-ekonomi {
-  background: #ffc107;
-}
-.category-infrastruktur {
-  background: #6f42c1;
-}
-.category-kemiskinan {
-  background: #dc3545;
-}
-.category-kependudukan {
-  background: #20c997;
-}
-.category-kesehatan {
-  background: #47b2e4;
-}
-.category-lingkungan {
-  background: #198754;
-}
-.category-pariwisata {
-  background: #fd7e14;
-}
-.category-pemerintah {
-  background: #6c757d;
-}
-.category-pendidikan {
-  background: #0dcaf0;
-}
-.category-sosial {
-  background: #e83e8c;
-}
-.category-default {
-  background: #37517e;
+/* Semua kategori pakai glass effect */
+[class^='category-'] {
+  background: #47b2e4; /* transparan putih */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* untuk Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff; /* teks putih biar kontras */
+  padding: 8px 12px;
 }
 
 /* Loading States */
