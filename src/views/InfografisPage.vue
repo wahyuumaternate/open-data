@@ -1,31 +1,35 @@
 <template>
-  <div class="mapsets-page">
+  <div class="infografis-page">
     <!-- Hero Section -->
-    <section class="mapsets-hero">
+    <section class="infografis-hero">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-8">
             <div class="hero-content" data-aos="fade-up">
-              <h1 class="hero-title">Mapsets</h1>
+              <h1 class="hero-title">Infografis</h1>
               <p class="hero-description">
-                Jelajahi koleksi data geospasial dan peta digital yang menyajikan informasi
-                geografis Kota Ternate dalam format yang mudah diakses dan dianalisis.
+                Jelajahi koleksi infografis informatif yang menyajikan data dan informasi Kota
+                Ternate dalam format visual yang menarik dan mudah dipahami.
               </p>
-              <div class="hero-stats" v-if="!loading">
+              <div class="hero-stats" v-if="!loading && stats">
                 <div class="stat-item">
-                  <i class="bi bi-map"></i>
-                  <span>{{ totalMapsets.toLocaleString('id-ID') }} Mapsets</span>
+                  <i class="bi bi-image"></i>
+                  <span>{{ stats.total.toLocaleString('id-ID') }} Infografis</span>
                 </div>
                 <div class="stat-item">
                   <i class="bi bi-eye"></i>
-                  <span>{{ totalViews.toLocaleString('id-ID') }} Views</span>
+                  <span>{{ stats.total_views.toLocaleString('id-ID') }} Views</span>
+                </div>
+                <div class="stat-item">
+                  <i class="bi bi-download"></i>
+                  <span>{{ stats.total_downloads.toLocaleString('id-ID') }} Downloads</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
-              <img src="../assets/img/map.svg" alt="Mapsets" class="img-fluid" />
+              <img src="../assets/img/infografis.svg" alt="Infografis" class="img-fluid" />
             </div>
           </div>
         </div>
@@ -43,7 +47,7 @@
                 <input
                   type="text"
                   v-model="searchQuery"
-                  placeholder="Cari mapsets berdasarkan judul, deskripsi, atau topik..."
+                  placeholder="Cari infografis berdasarkan nama, deskripsi, atau topik..."
                   class="form-control"
                   @input="handleSearch"
                 />
@@ -55,18 +59,39 @@
             <div class="col-lg-3">
               <select v-model="selectedTopic" @change="applyFilters" class="form-select">
                 <option value="">Semua Topik</option>
-                <option v-for="topic in availableTopics" :key="topic.id" :value="topic.name">
-                  {{ topic.name }} ({{ topic.count }})
+                <option v-for="(count, topic) in availableTopics" :key="topic" :value="topic">
+                  {{ topic }} ({{ count }})
                 </option>
               </select>
             </div>
             <div class="col-lg-3">
               <select v-model="sortBy" @change="applyFilters" class="form-select">
-                <option value="created_at">Terbaru</option>
-                <option value="title">Nama A-Z</option>
-                <option value="view_count">View Terbanyak</option>
-                <option value="updated_at">Terakhir Diperbarui</option>
+                <option value="latest">Terbaru</option>
+                <option value="name">Nama A-Z</option>
+                <option value="popular">Paling Populer</option>
+                <option value="downloads">Download Terbanyak</option>
+                <option value="oldest">Terlama</option>
               </select>
+            </div>
+          </div>
+
+          <!-- Tags Filter -->
+          <div class="row mt-3" v-if="popularTags && Object.keys(popularTags).length > 0">
+            <div class="col-12">
+              <div class="tags-filter">
+                <span class="filter-label">Tags Populer:</span>
+                <button
+                  v-for="(count, tag) in Object.fromEntries(
+                    Object.entries(popularTags).slice(0, 10)
+                  )"
+                  :key="tag"
+                  @click="filterByTag(tag)"
+                  :class="{ active: selectedTag === tag }"
+                  class="tag-btn"
+                >
+                  {{ tag }} ({{ count }})
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -79,7 +104,7 @@
         <!-- Loading State -->
         <div v-if="loading" class="row">
           <div v-for="n in 6" :key="n" class="col-lg-4 col-md-6 mb-4">
-            <div class="mapset-card skeleton-card">
+            <div class="infografis-card skeleton-card">
               <div class="skeleton skeleton-image"></div>
               <div class="card-body">
                 <div class="skeleton skeleton-badge mb-2"></div>
@@ -98,7 +123,7 @@
               <i class="bi bi-exclamation-triangle me-2"></i>
               {{ error }}
               <br />
-              <button @click="fetchMapsets" class="btn btn-outline-danger btn-sm mt-2">
+              <button @click="fetchInfografis" class="btn btn-outline-danger btn-sm mt-2">
                 Coba Lagi
               </button>
             </div>
@@ -108,156 +133,133 @@
         <!-- Results Info -->
         <div v-if="!loading && !error" class="results-info" data-aos="fade-up">
           <div class="row align-items-center mb-4">
-            <div class="col-md-6">
+            <div class="col-md-8">
               <p class="results-text">
                 Menampilkan {{ pagination.from || 0 }}-{{ pagination.to || 0 }} dari
-                {{ pagination.total || 0 }} mapsets
-                <span v-if="searchQuery || selectedTopic" class="filter-indicator">
+                {{ pagination.total || 0 }} infografis
+                <span v-if="searchQuery || selectedTopic || selectedTag" class="filter-indicator">
                   (difilter)
                 </span>
               </p>
-            </div>
-            <div class="col-md-6 text-md-end">
-              <div class="view-options">
-                <button
-                  @click="viewMode = 'grid'"
-                  :class="{ active: viewMode === 'grid' }"
-                  class="view-btn"
-                >
-                  <i class="bi bi-grid-3x3-gap"></i>
-                </button>
-                <button
-                  @click="viewMode = 'list'"
-                  :class="{ active: viewMode === 'list' }"
-                  class="view-btn"
-                >
-                  <i class="bi bi-list"></i>
-                </button>
+              <!-- Active Filters -->
+              <div v-if="hasActiveFilters" class="active-filters mt-2">
+                <span class="filter-label">Filter aktif:</span>
+                <span v-if="selectedTopic" class="filter-tag">
+                  Topik: {{ selectedTopic }}
+                  <button @click="clearTopicFilter" class="remove-filter">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </span>
+                <span v-if="selectedTag" class="filter-tag">
+                  Tag: {{ selectedTag }}
+                  <button @click="clearTagFilter" class="remove-filter">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </span>
+                <span v-if="searchQuery" class="filter-tag">
+                  Pencarian: "{{ searchQuery }}"
+                  <button @click="clearSearch" class="remove-filter">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </span>
               </div>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <button
+                @click="clearAllFilters"
+                v-if="hasActiveFilters"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                <i class="bi bi-x-circle me-1"></i>
+                Reset Filter
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- Mapsets Grid/List -->
+        <!-- Infografis Grid -->
         <div v-if="!loading && !error">
-          <!-- Grid View -->
-          <div v-if="viewMode === 'grid'" class="row">
+          <div class="row">
             <div
-              v-for="(mapset, index) in mapsets"
-              :key="mapset.uuid"
+              v-for="(infografis, index) in infografis"
+              :key="infografis.id"
               class="col-lg-4 col-md-6 mb-4"
               data-aos="fade-up"
               :data-aos-delay="index * 100"
             >
-              <div class="mapset-card">
+              <div class="infografis-card">
                 <div class="card-image">
                   <img
-                    :src="getMapsetThumbnail(mapset)"
-                    :alt="mapset.title"
+                    :src="infografis.gambar_url || getPlaceholderImage()"
+                    :alt="infografis.nama"
                     class="img-fluid"
                     loading="lazy"
                     @error="handleImageError"
                   />
                   <div class="image-overlay">
-                    <button @click="viewMapset(mapset)" class="btn btn-primary">
+                    <button @click="viewInfografis(infografis)" class="btn btn-primary">
                       <i class="bi bi-eye me-2"></i>Lihat Detail
                     </button>
                   </div>
-                  <div class="category-tag" :class="getCategoryClass(mapset.topic)">
+                  <div
+                    class="category-tag"
+                    :class="getCategoryClass(infografis.topic)"
+                    v-if="infografis.topic"
+                  >
                     <i class="bi bi-tag-fill me-1"></i>
-                    {{ mapset.topic }}
+                    {{ infografis.topic }}
                   </div>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">{{ mapset.title }}</h5>
-                  <p class="card-description">{{ truncateText(mapset.description, 100) }}</p>
-                  <div class="card-meta">
+                  <h5 class="card-title">{{ infografis.nama }}</h5>
+                  <p class="card-description">{{ truncateText(infografis.deskripsi, 100) }}</p>
+
+                  <!-- Tags -->
+                  <div class="tags-container" v-if="infografis.tags && infografis.tags.length > 0">
+                    <span
+                      v-for="tag in infografis.tags.slice(0, 3)"
+                      :key="tag"
+                      @click="filterByTag(tag)"
+                      class="tag-item clickable"
+                    >
+                      {{ tag }}
+                    </span>
+                  </div>
+
+                  <div class="card-meta" v-if="infografis.user">
                     <div class="meta-item">
                       <i class="bi bi-building"></i>
-                      <span>{{ mapset.organization_name }}</span>
+                      <span>{{ getOrganizationName(infografis.user) }}</span>
                     </div>
                     <div class="meta-item">
                       <i class="bi bi-calendar"></i>
-                      <span>{{ formatDate(mapset.updated_at) }}</span>
+                      <span>{{ formatDate(infografis.updated_at) }}</span>
                     </div>
                   </div>
                   <div class="card-stats">
                     <div class="stat">
                       <i class="bi bi-eye"></i>
-                      <span>{{ mapset.view_count.toLocaleString('id-ID') }}</span>
+                      <span>{{ infografis.views?.toLocaleString('id-ID') || 0 }}</span>
                     </div>
                     <div class="stat">
-                      <i class="bi bi-geo-alt"></i>
-                      <span>GeoData</span>
+                      <i class="bi bi-download"></i>
+                      <span>{{ infografis.downloads?.toLocaleString('id-ID') || 0 }}</span>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- List View -->
-          <div v-if="viewMode === 'list'" class="mapsets-list">
-            <div
-              v-for="(mapset, index) in mapsets"
-              :key="mapset.uuid"
-              class="list-item"
-              data-aos="fade-up"
-              :data-aos-delay="index * 50"
-            >
-              <div class="row align-items-center">
-                <div class="col-md-2">
-                  <img
-                    :src="getMapsetThumbnail(mapset)"
-                    :alt="mapset.title"
-                    class="list-thumbnail"
-                    loading="lazy"
-                    @error="handleImageError"
-                  />
-                </div>
-                <div class="col-md-7">
-                  <div class="list-content">
-                    <div class="list-category" :class="getCategoryClass(mapset.topic)">
-                      <i class="bi bi-tag-fill me-1"></i>
-                      {{ mapset.topic }}
-                    </div>
-                    <h5 class="list-title">{{ mapset.title }}</h5>
-                    <p class="list-description">{{ truncateText(mapset.description, 150) }}</p>
-                    <div class="list-meta">
-                      <span><i class="bi bi-building me-1"></i>{{ mapset.organization_name }}</span>
-                      <span
-                        ><i class="bi bi-calendar me-1"></i
-                        >{{ formatDate(mapset.updated_at) }}</span
-                      >
-                      <span
-                        ><i class="bi bi-eye me-1"></i
-                        >{{ mapset.view_count.toLocaleString('id-ID') }}</span
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 text-end">
-                  <button @click="viewMapset(mapset)" class="btn btn-outline-primary">
-                    <i class="bi bi-eye me-2"></i>Lihat Detail
-                  </button>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Empty State -->
-          <div v-if="mapsets.length === 0" class="empty-state text-center">
-            <i class="bi bi-map empty-icon"></i>
-            <h3>Tidak Ada Mapsets Ditemukan</h3>
-            <p v-if="searchQuery || selectedTopic">
+          <div v-if="infografis.length === 0" class="empty-state text-center">
+            <i class="bi bi-image empty-icon"></i>
+            <h3>Tidak Ada Infografis Ditemukan</h3>
+            <p v-if="hasActiveFilters">
               Coba ubah kata kunci pencarian atau filter yang digunakan.
             </p>
-            <p v-else>Belum ada mapsets yang tersedia saat ini.</p>
-            <button
-              v-if="searchQuery || selectedTopic"
-              @click="clearAllFilters"
-              class="btn btn-primary"
-            >
+            <p v-else>Belum ada infografis yang tersedia saat ini.</p>
+            <button v-if="hasActiveFilters" @click="clearAllFilters" class="btn btn-primary">
               Reset Filter
             </button>
           </div>
@@ -300,7 +302,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'MapsetsPage',
+  name: 'InfografisPage',
   data() {
     return {
       // API Configuration
@@ -311,15 +313,17 @@ export default {
       error: null,
 
       // Data
-      mapsets: [],
+      infografis: [],
       pagination: {},
-      availableTopics: [],
+      availableTopics: {},
+      popularTags: {},
+      stats: {},
 
       // Filters and Search
       searchQuery: '',
       selectedTopic: '',
-      sortBy: 'created_at',
-      viewMode: 'grid', // 'grid' or 'list'
+      selectedTag: '',
+      sortBy: 'latest',
 
       // Search debounce
       searchTimeout: null,
@@ -343,12 +347,8 @@ export default {
   },
 
   computed: {
-    totalMapsets() {
-      return this.pagination.total || 0
-    },
-
-    totalViews() {
-      return this.mapsets.reduce((sum, mapset) => sum + (mapset.view_count || 0), 0)
+    hasActiveFilters() {
+      return !!(this.searchQuery || this.selectedTopic || this.selectedTag)
     },
 
     visiblePages() {
@@ -366,7 +366,7 @@ export default {
   },
 
   async mounted() {
-    await this.fetchMapsets()
+    await this.fetchInfografis()
 
     // Initialize AOS
     if (typeof AOS !== 'undefined') {
@@ -379,18 +379,17 @@ export default {
   },
 
   methods: {
-    async fetchMapsets(page = 1) {
+    async fetchInfografis(page = 1) {
       this.loading = true
       this.error = null
 
       try {
-        console.log('Fetching mapsets...')
+        console.log('Fetching infografis...')
 
         const params = {
           page: page,
           per_page: 12,
           sort: this.sortBy,
-          order: 'desc',
         }
 
         if (this.searchQuery) {
@@ -401,32 +400,41 @@ export default {
           params.topic = this.selectedTopic
         }
 
-        const response = await axios.get(`${this.apiUrl}mapsets`, { params })
+        if (this.selectedTag) {
+          params.tag = this.selectedTag
+        }
+
+        const response = await axios.get(`${this.apiUrl}infografis`, { params })
 
         if (response.data.success) {
-          this.mapsets = response.data.data.mapsets || []
-          this.pagination = response.data.data.pagination || {}
-          this.availableTopics = response.data.data.filters.available_topics || []
+          const data = response.data.data
+          this.infografis = data.infografis || []
+          this.pagination = data.pagination || {}
+          this.availableTopics = data.filters?.topics || {}
+          this.popularTags = data.filters?.popular_tags || {}
+          this.stats = data.stats || {}
 
-          console.log('Mapsets loaded:', this.mapsets.length)
+          console.log('Infografis loaded:', this.infografis.length)
         } else {
-          throw new Error(response.data.message || 'Failed to fetch mapsets')
+          throw new Error(response.data.message || 'Failed to fetch infografis')
         }
       } catch (error) {
-        console.error('Error fetching mapsets:', error)
+        console.error('Error fetching infografis:', error)
 
         if (error.response?.status === 404) {
-          this.error = 'Endpoint mapsets tidak ditemukan'
+          this.error = 'Endpoint infografis tidak ditemukan'
         } else if (error.code === 'NETWORK_ERROR' || error.message.includes('Network')) {
           this.error = 'Gagal terhubung ke server. Periksa koneksi internet Anda.'
         } else {
-          this.error = 'Gagal memuat mapsets. Silakan coba lagi.'
+          this.error = 'Gagal memuat infografis. Silakan coba lagi.'
         }
 
         // Set empty data as fallback
-        this.mapsets = []
+        this.infografis = []
         this.pagination = {}
-        this.availableTopics = []
+        this.availableTopics = {}
+        this.popularTags = {}
+        this.stats = {}
       } finally {
         this.loading = false
       }
@@ -436,28 +444,48 @@ export default {
       // Debounce search
       clearTimeout(this.searchTimeout)
       this.searchTimeout = setTimeout(() => {
-        this.fetchMapsets(1) // Reset to first page when searching
+        this.fetchInfografis(1) // Reset to first page when searching
       }, 300)
     },
 
     applyFilters() {
-      this.fetchMapsets(1) // Reset to first page when filtering
+      this.fetchInfografis(1) // Reset to first page when filtering
     },
 
     clearSearch() {
       this.searchQuery = ''
-      this.fetchMapsets(1)
+      this.fetchInfografis(1)
+    },
+
+    clearTopicFilter() {
+      this.selectedTopic = ''
+      this.fetchInfografis(1)
+    },
+
+    clearTagFilter() {
+      this.selectedTag = ''
+      this.fetchInfografis(1)
     },
 
     clearAllFilters() {
       this.searchQuery = ''
       this.selectedTopic = ''
-      this.fetchMapsets(1)
+      this.selectedTag = ''
+      this.fetchInfografis(1)
+    },
+
+    filterByTag(tag) {
+      if (this.selectedTag === tag) {
+        this.selectedTag = ''
+      } else {
+        this.selectedTag = tag
+      }
+      this.fetchInfografis(1)
     },
 
     changePage(page) {
       if (page >= 1 && page <= this.pagination.last_page) {
-        this.fetchMapsets(page)
+        this.fetchInfografis(page)
         this.scrollToTop()
       }
     },
@@ -470,14 +498,13 @@ export default {
       return this.topicClassMap[topic] || 'category-default'
     },
 
-    getMapsetThumbnail(mapset) {
-      // Return thumbnail if available, otherwise use default map image
-      return 'assets/img/map.png'
+    getPlaceholderImage() {
+      return '/assets/img/infografis-placeholder.svg'
     },
 
     handleImageError(event) {
       // Fallback untuk gambar yang error
-      event.target.src = 'assets/img/map.png'
+      event.target.src = this.getPlaceholderImage()
     },
 
     formatDate(dateStr) {
@@ -496,9 +523,20 @@ export default {
       return text.substring(0, maxLength) + '...'
     },
 
-    viewMapset(mapset) {
-      // Navigate to mapset detail page
-      this.$router.push(`/mapset/${mapset.slug || mapset.uuid}`)
+    getOrganizationName(user) {
+      if (!user) return 'Tidak diketahui'
+
+      // Prioritas: nama organisasi jika ada, jika tidak pakai nama user
+      if (user.organization && user.organization.name) {
+        return user.organization.name
+      }
+
+      return user.name || 'Tidak diketahui'
+    },
+
+    viewInfografis(infografis) {
+      // Navigate to infografis detail page
+      this.$router.push(`/infografis/${infografis.slug || infografis.id}`)
     },
   },
 }
@@ -506,7 +544,7 @@ export default {
 
 <style scoped>
 /* Hero Section */
-.mapsets-hero {
+.infografis-hero {
   background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
   color: white;
   padding: 120px 0 80px;
@@ -514,7 +552,7 @@ export default {
   overflow: hidden;
 }
 
-.mapsets-hero::before {
+.infografis-hero::before {
   content: '';
   position: absolute;
   top: 0;
@@ -524,17 +562,6 @@ export default {
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>')
     repeat;
   opacity: 0.3;
-}
-
-.category-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  backdrop-filter: blur(10px);
 }
 
 .hero-title {
@@ -555,6 +582,7 @@ export default {
 .hero-stats {
   display: flex;
   gap: 30px;
+  flex-wrap: wrap;
 }
 
 .stat-item {
@@ -649,6 +677,77 @@ export default {
   box-shadow: 0 0 0 3px rgba(71, 178, 228, 0.1);
 }
 
+/* Tags Filter */
+.tags-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #37517e;
+}
+
+.tag-btn {
+  background: #e5e7eb;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tag-btn:hover,
+.tag-btn.active {
+  background: #47b2e4;
+  color: white;
+  border-color: #47b2e4;
+}
+
+/* Active Filters */
+.active-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-tag {
+  display: inline-flex;
+  align-items: center;
+  background: #47b2e4;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.remove-filter {
+  background: none;
+  border: none;
+  color: white;
+  margin-left: 5px;
+  cursor: pointer;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.remove-filter:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /* Main Content */
 .main-content {
   background: #f8f9fa;
@@ -670,31 +769,8 @@ export default {
   font-weight: 600;
 }
 
-.view-options {
-  display: flex;
-  gap: 5px;
-  justify-content: flex-end;
-}
-
-.view-btn {
-  background: white;
-  border: 2px solid #e5e7eb;
-  padding: 8px 12px;
-  border-radius: 8px;
-  color: #6c757d;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.view-btn:hover,
-.view-btn.active {
-  background: #47b2e4;
-  color: white;
-  border-color: #47b2e4;
-}
-
-/* Mapset Cards */
-.mapset-card {
+/* Infografis Cards */
+.infografis-card {
   background: white;
   border-radius: 15px;
   overflow: hidden;
@@ -704,7 +780,7 @@ export default {
   border: 1px solid #ebeef4;
 }
 
-.mapset-card:hover {
+.infografis-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
@@ -722,7 +798,7 @@ export default {
   transition: transform 0.3s ease;
 }
 
-.mapset-card:hover .card-image img {
+.infografis-card:hover .card-image img {
   transform: scale(1.05);
 }
 
@@ -740,7 +816,7 @@ export default {
   transition: opacity 0.3s ease;
 }
 
-.mapset-card:hover .image-overlay {
+.infografis-card:hover .image-overlay {
   opacity: 1;
 }
 
@@ -773,7 +849,36 @@ export default {
   color: #6c757d;
   font-size: 14px;
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+
+/* Tags Container */
+.tags-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.tag-item {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+}
+
+.tag-item.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tag-item.clickable:hover {
+  background: #47b2e4;
+  color: white;
+  border-color: #47b2e4;
 }
 
 .card-meta {
@@ -815,88 +920,71 @@ export default {
 .stat i {
   color: #47b2e4;
 }
-
-/* List View */
-.mapsets-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* Category Colors - Glass Effect */
+.category-ekonomi {
+  background: rgba(16, 185, 129, 0.25); /* hijau soft */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-item {
-  background: white;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid #ebeef4;
+.category-infrastruktur {
+  background: rgba(245, 158, 11, 0.25); /* oranye soft */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+.category-kemiskinan {
+  background: rgba(239, 68, 68, 0.25); /* merah soft */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-thumbnail {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
+.category-kependudukan {
+  background: rgba(139, 92, 246, 0.25); /* ungu soft */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-category {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 15px;
-  font-size: 11px;
-  font-weight: 600;
-  background-color: #1e40af;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
+.category-kesehatan {
+  background: rgba(6, 182, 212, 0.25); /* biru muda */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #37517e;
-  margin-bottom: 10px;
+.category-lingkungan {
+  background: rgba(132, 204, 22, 0.25); /* hijau lime */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-description {
-  color: #6c757d;
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 15px;
+.category-pariwisata {
+  background: rgba(249, 115, 22, 0.25); /* oranye terang */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  font-size: 12px;
-  color: #6c757d;
+.category-pemerintah {
+  background: rgba(99, 102, 241, 0.25); /* biru-ungu */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-meta span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.category-pendidikan {
+  background: rgba(236, 72, 153, 0.25); /* pink soft */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
-.list-meta i {
-  color: #47b2e4;
+.category-sosial {
+  background: rgba(20, 184, 166, 0.25); /* teal soft */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
-/* Semua kategori pakai glass effect */
-[class^='category-'] {
-  background: #47b2e4; /* transparan putih */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* untuk Safari */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: #fff; /* teks putih biar kontras */
-  padding: 8px 12px;
+
+.category-default {
+  background: rgba(71, 178, 228, 0.25); /* biru default */
+  backdrop-filter: blur(6px);
+  border-radius: 6px;
 }
 
 /* Loading States */
@@ -1079,9 +1167,25 @@ export default {
   transform: translateY(-2px);
 }
 
+.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  color: white;
+  transform: translateY(-2px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  .mapsets-hero {
+  .infografis-hero {
     padding: 80px 0 60px;
     text-align: center;
   }
@@ -1108,6 +1212,11 @@ export default {
     margin-bottom: 15px;
   }
 
+  .tags-filter {
+    margin-top: 10px;
+    justify-content: center;
+  }
+
   .main-content {
     padding: 40px 0;
   }
@@ -1117,26 +1226,12 @@ export default {
     margin-bottom: 15px;
   }
 
-  .view-options {
+  .active-filters {
     justify-content: center;
   }
 
   .card-body {
     padding: 20px;
-  }
-
-  .list-item {
-    padding: 20px;
-  }
-
-  .list-item .row > div {
-    margin-bottom: 15px;
-    text-align: center;
-  }
-
-  .list-meta {
-    justify-content: center;
-    gap: 15px;
   }
 
   .pagination {
@@ -1155,7 +1250,7 @@ export default {
     font-size: 24px;
   }
 
-  .mapset-card {
+  .infografis-card {
     margin-bottom: 20px;
   }
 
@@ -1183,15 +1278,32 @@ export default {
   .search-box i {
     left: 12px;
   }
+
+  .hero-stats {
+    gap: 15px;
+  }
+
+  .stat-item {
+    font-size: 14px;
+  }
+
+  .tags-filter {
+    gap: 8px;
+  }
+
+  .tag-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
 }
 
 /* Additional Animations */
-.mapset-card {
+.infografis-card {
   position: relative;
   overflow: hidden;
 }
 
-.mapset-card::before {
+.infografis-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -1203,34 +1315,12 @@ export default {
   z-index: 1;
 }
 
-.mapset-card:hover::before {
-  left: 100%;
-}
-
-.list-item {
-  position: relative;
-  overflow: hidden;
-}
-
-.list-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(71, 178, 228, 0.1), transparent);
-  transition: left 0.6s;
-  z-index: 1;
-}
-
-.list-item:hover::before {
+.infografis-card:hover::before {
   left: 100%;
 }
 
 /* Focus States */
-.mapset-card:focus-within,
-.list-item:focus-within {
+.infografis-card:focus-within {
   outline: 2px solid #47b2e4;
   outline-offset: 2px;
 }
@@ -1238,13 +1328,11 @@ export default {
 /* Print Styles */
 @media print {
   .search-filter-section,
-  .pagination-container,
-  .view-options {
+  .pagination-container {
     display: none;
   }
 
-  .mapset-card,
-  .list-item {
+  .infografis-card {
     break-inside: avoid;
     box-shadow: none;
     border: 1px solid #ddd;

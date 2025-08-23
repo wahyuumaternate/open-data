@@ -44,7 +44,11 @@
               Visualisasi
             </router-link>
           </li>
-          <li><a href="#" @click.prevent>Infografis</a></li>
+          <li>
+            <router-link to="/infografis" :class="{ active: $route.name === 'infografis' }">
+              Infografis
+            </router-link>
+          </li>
           <li>
             <router-link to="/organizations" :class="{ active: $route.name === 'organizations' }">
               Organisasi
@@ -52,7 +56,7 @@
           </li>
           <li><a href="#" @click.prevent>Topik</a></li>
           <li>
-            <router-link to="/about" :class="{ active: $route.name === 'about' }">
+            <router-link to="/bantuan" :class="{ active: $route.name === 'bantuan' }">
               Bantuan
             </router-link>
           </li>

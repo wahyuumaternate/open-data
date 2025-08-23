@@ -6,6 +6,8 @@ import OrganizationDetailView from '@/views/OrganizationDetailView.vue' // Add t
 import DatasetsView from '@/views/DatasetsView.vue'
 import MapsetsView from '@/views/MapsetsView.vue'
 import MapsetDetailView from '@/views/MapsetDetailView.vue'
+import InfografisPage from '@/views/InfografisPage.vue'
+// import InfografisDetailPage from '@/views/InfografisDetailPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -96,9 +98,32 @@ const router = createRouter({
       },
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      path: '/infografis',
+      name: 'infografis',
+      component: InfografisPage,
+      meta: {
+        title: 'Infografis - Portal Data Ternate',
+        description:
+          'Jelajahi koleksi infografis informatif yang menyajikan data dan informasi Kota Ternate dalam format visual yang menarik dan mudah dipahami.',
+        keywords: 'infografis, data visual, ternate, informasi, statistik',
+      },
+    },
+    // {
+    //   path: '/infografis/:slug',
+    //   name: 'InfografisDetail',
+    //   component: InfografisDetailPage,
+    //   meta: {
+    //     title: 'Detail Infografis - Portal Data Ternate',
+    //     description: 'Detail infografis dengan informasi lengkap dan kemampuan download',
+    //     keywords: 'detail infografis, download, data visual, ternate',
+    //   },
+    //   props: true,
+    // },
+
+    {
+      path: '/bantuan',
+      name: 'bantuan',
+      component: () => import('../views/BantuanView.vue'),
       meta: {
         title: 'Tentang - Open Data Ternate',
         description: 'Informasi tentang portal Open Data Ternate dan kontak',
