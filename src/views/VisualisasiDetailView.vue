@@ -562,6 +562,8 @@ export default {
             }
           }
 
+          document.title = `${this.visualisasi.nama} - Open Data Ternate`
+
           // Mock related visualizations (in real app, fetch from API)
           this.relatedVisualizations = [
             { id: 2, nama: 'Visualisasi Terkait 1', topic: 'Teknologi', views: 150, slug: 'vis-1' },

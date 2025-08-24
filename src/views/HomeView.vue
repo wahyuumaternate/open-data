@@ -24,7 +24,15 @@ export default {
     Features,
     FAQ,
   },
-  methods: {},
+  methods: {
+    handleCategorySelected(category) {
+      console.log('Kategori dipilih di HomeView:', category)
+      this.$router.push({
+        name: 'datasets',
+        query: { topic: category.toLowerCase() },
+      })
+    },
+  },
 }
 </script>
 

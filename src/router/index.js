@@ -8,6 +8,7 @@ import MapsetsView from '@/views/MapsetsView.vue'
 import MapsetDetailView from '@/views/MapsetDetailView.vue'
 import InfografisPage from '@/views/InfografisPage.vue'
 import InfografisDetailPage from '@/views/InfografisDetailPage.vue'
+import TopikView from '@/views/TopikView.vue'
 // import InfografisDetailPage from '@/views/InfografisDetailPage.vue'
 
 const router = createRouter({
@@ -37,7 +38,7 @@ const router = createRouter({
       name: 'mapsets',
       component: MapsetsView,
       meta: {
-        title: 'Mapsets - Open Data Kota Ternate',
+        title: 'Mapsets - Open Data Ternate',
       },
     },
     {
@@ -46,7 +47,7 @@ const router = createRouter({
       component: MapsetDetailView,
       props: true,
       meta: {
-        title: 'Detail Mapset - Open Data Kota Ternate',
+        title: 'Detail Mapset - Open Data Ternate',
       },
     },
     {
@@ -103,7 +104,7 @@ const router = createRouter({
       name: 'infografis',
       component: InfografisPage,
       meta: {
-        title: 'Infografis - Portal Data Ternate',
+        title: 'Infografis - Open Data Ternate',
         description:
           'Jelajahi koleksi infografis informatif yang menyajikan data dan informasi Kota Ternate dalam format visual yang menarik dan mudah dipahami.',
         keywords: 'infografis, data visual, ternate, informasi, statistik',
@@ -114,7 +115,7 @@ const router = createRouter({
       name: 'InfografisDetail',
       component: InfografisDetailPage,
       meta: {
-        title: 'Detail Infografis - Portal Data Ternate',
+        title: 'Detail Infografis - Open Data Ternate',
         description: 'Detail infografis dengan informasi lengkap dan kemampuan download',
         keywords: 'detail infografis, download, data visual, ternate',
       },
@@ -126,8 +127,17 @@ const router = createRouter({
       name: 'bantuan',
       component: () => import('../views/BantuanView.vue'),
       meta: {
-        title: 'Tentang - Open Data Ternate',
-        description: 'Informasi tentang portal Open Data Ternate dan kontak',
+        title: 'Bantuan - Open Data Ternate',
+        description: 'Informasi bantuan portal Open Data Ternate dan kontak',
+      },
+    },
+    {
+      path: '/topik',
+      name: 'TopikView',
+      component: () => import('../views/TopikView.vue'),
+      meta: {
+        title: 'Topik - Open Data Ternate',
+        description: 'Informasi bantuan portal Open Data Ternate dan kontak',
       },
     },
     // Catch all 404

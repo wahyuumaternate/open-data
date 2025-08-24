@@ -505,7 +505,7 @@ export default {
 .mapsets-hero {
   background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
   color: white;
-  padding: 120px 0 80px;
+  padding: 120px 0 80px !important;
   position: relative;
   overflow: hidden;
 }

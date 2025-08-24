@@ -19,7 +19,11 @@
               Beranda
             </router-link>
           </li>
-          <!-- ✅ Dropdown Koleksi Data -->
+          <li>
+            <router-link to="/topik" :class="{ active: $route.name === 'TopikView' }">
+              Topik
+            </router-link>
+          </li>
           <li class="dropdown">
             <a href="#" @click.prevent>
               <span>Koleksi Data</span>
@@ -54,7 +58,6 @@
               Organisasi
             </router-link>
           </li>
-          <li><a href="#" @click.prevent>Topik</a></li>
           <li>
             <router-link to="/bantuan" :class="{ active: $route.name === 'bantuan' }">
               Bantuan <i class="bi bi-question-circle"></i>
