@@ -386,7 +386,7 @@ export default {
       } catch (error) {
         console.error('Error fetching mapset:', error)
         if (error.response?.status === 404) {
-          this.error = 'Mapset tidak ditemukan atau tidak tersedia untuk publik'
+          this.$router.push({ name: 'NotFound' })
         } else if (error.message.includes('Identifier parameter')) {
           this.error = 'Parameter URL tidak valid. Pastikan URL dalam format /mapset/{identifier}'
         } else {

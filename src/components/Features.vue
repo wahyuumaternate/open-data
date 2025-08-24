@@ -80,9 +80,11 @@ export default {
   },
   methods: {
     selectCategory(category) {
-      console.log('Selected category:', category.name)
-      // Add navigation logic here
-      this.$emit('category-selected', category)
+      // Navigate to datasets page with category filter
+      this.$router.push({
+        name: 'datasets',
+        query: { topic: category.name.toLowerCase() },
+      })
     },
   },
 }

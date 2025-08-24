@@ -57,7 +57,7 @@
           <li><a href="#" @click.prevent>Topik</a></li>
           <li>
             <router-link to="/bantuan" :class="{ active: $route.name === 'bantuan' }">
-              Bantuan
+              Bantuan <i class="bi bi-question-circle"></i>
             </router-link>
           </li>
         </ul>

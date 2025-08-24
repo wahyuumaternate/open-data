@@ -24,15 +24,7 @@ export default {
     Features,
     FAQ,
   },
-  methods: {
-    handleCategorySelected(category) {
-      // Navigate to datasets page with category filter
-      this.$router.push({
-        name: 'datasets',
-        query: { category: category.name.toLowerCase() },
-      })
-    },
-  },
+  methods: {},
 }
 </script>
 

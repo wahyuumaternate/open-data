@@ -397,7 +397,7 @@ export default {
       } catch (error) {
         console.error('Error fetching dataset:', error)
         if (error.response?.status === 404) {
-          this.error = 'Dataset tidak ditemukan atau tidak tersedia untuk publik'
+          this.$router.push({ name: 'NotFound' })
         } else if (error.message.includes('Slug parameter')) {
           this.error = 'Parameter URL tidak valid. Pastikan URL dalam format /dataset/{slug}'
         } else {

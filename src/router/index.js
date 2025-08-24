@@ -7,6 +7,7 @@ import DatasetsView from '@/views/DatasetsView.vue'
 import MapsetsView from '@/views/MapsetsView.vue'
 import MapsetDetailView from '@/views/MapsetDetailView.vue'
 import InfografisPage from '@/views/InfografisPage.vue'
+import InfografisDetailPage from '@/views/InfografisDetailPage.vue'
 // import InfografisDetailPage from '@/views/InfografisDetailPage.vue'
 
 const router = createRouter({
@@ -108,17 +109,17 @@ const router = createRouter({
         keywords: 'infografis, data visual, ternate, informasi, statistik',
       },
     },
-    // {
-    //   path: '/infografis/:slug',
-    //   name: 'InfografisDetail',
-    //   component: InfografisDetailPage,
-    //   meta: {
-    //     title: 'Detail Infografis - Portal Data Ternate',
-    //     description: 'Detail infografis dengan informasi lengkap dan kemampuan download',
-    //     keywords: 'detail infografis, download, data visual, ternate',
-    //   },
-    //   props: true,
-    // },
+    {
+      path: '/infografis/:slug',
+      name: 'InfografisDetail',
+      component: InfografisDetailPage,
+      meta: {
+        title: 'Detail Infografis - Portal Data Ternate',
+        description: 'Detail infografis dengan informasi lengkap dan kemampuan download',
+        keywords: 'detail infografis, download, data visual, ternate',
+      },
+      props: true,
+    },
 
     {
       path: '/bantuan',

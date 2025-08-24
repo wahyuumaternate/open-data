@@ -594,7 +594,7 @@ export default {
       } catch (error) {
         console.error('Error fetching organization:', error)
         if (error.response && error.response.status === 404) {
-          this.error = 'Organisasi tidak ditemukan'
+          this.$router.push({ name: 'NotFound' })
         } else {
           this.error = 'Gagal memuat detail organisasi. Silakan coba lagi.'
         }

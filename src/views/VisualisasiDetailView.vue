@@ -574,7 +574,7 @@ export default {
       } catch (error) {
         console.error('Error fetching visualisasi:', error)
         if (error.response && error.response.status === 404) {
-          this.error = 'Visualisasi tidak ditemukan'
+          this.$router.push({ name: 'NotFound' })
         } else {
           this.error = 'Gagal memuat detail visualisasi. Silakan coba lagi.'
         }
