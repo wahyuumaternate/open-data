@@ -40,6 +40,9 @@
             <li><a href="#" @click.prevent>Peta Ternate</a></li>
             <li><a href="#" @click.prevent>Dashboard Ternate</a></li>
             <li><a href="https://ternatekota.bps.go.id/id" target="_blank">BPS Ternate</a></li>
+            <li>
+              <a href="https://data.go.id/" target="_blank">Satu Data Indonesia</a>
+            </li>
           </ul>
         </div>
 

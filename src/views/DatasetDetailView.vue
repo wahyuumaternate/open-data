@@ -706,7 +706,7 @@ export default {
 }
 
 .breadcrumbs ol li a:hover {
-  color: #47b2e4;
+  color: #1acc8d;
 }
 
 /* Dataset Hero Section */
@@ -814,12 +814,12 @@ export default {
 }
 
 .btn-download {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
 }
 
 .btn-download:hover {
-  background: #209dd8;
+  background: #1ff4a9ff;
   transform: translateY(-2px);
 }
 
@@ -859,7 +859,7 @@ export default {
 
 .section-title i {
   margin-right: 10px;
-  color: #47b2e4;
+  color: #1acc8d;
 }
 
 /* Info Grid */
@@ -895,7 +895,7 @@ export default {
   background: #37517e;
 }
 .category-badge.category-kesehatan {
-  background: #47b2e4;
+  background: #1acc8d;
 }
 .category-badge.category-pendidikan {
   background: #28a745;
@@ -948,7 +948,7 @@ export default {
 
 .data-fields li:before {
   content: '▸';
-  color: #47b2e4;
+  color: #1acc8d;
   margin-right: 10px;
   font-weight: bold;
 }
@@ -1298,7 +1298,7 @@ export default {
 }
 
 .download-btn:hover {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
   transform: translateY(-2px);
 }
@@ -1368,7 +1368,7 @@ export default {
 }
 
 .contact-item i {
-  color: #47b2e4;
+  color: #1acc8d;
   font-size: 18px;
   width: 20px;
 }

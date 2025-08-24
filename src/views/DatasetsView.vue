@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-lg-12 text-center" data-aos="fade-up">
             <h1 class="display-4 text-white mb-4">Dataset Kota Ternate</h1>
-            <p class="lead text-white-50 mb-4">
+            <p class="lead text-white mb-4">
               Temukan berbagai dataset pemerintahan Kota Ternate untuk kebutuhan penelitian,
               analisis, dan pengembangan aplikasi
             </p>

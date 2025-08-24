@@ -635,7 +635,7 @@ export default {
 }
 
 .search-box input:focus {
-  border-color: #47b2e4;
+  border-color: #1acc8d;
   box-shadow: 0 0 0 3px rgba(71, 178, 228, 0.1);
   outline: none;
 }
@@ -667,7 +667,7 @@ export default {
 }
 
 .form-select:focus {
-  border-color: #47b2e4;
+  border-color: #1acc8d;
   box-shadow: 0 0 0 3px rgba(71, 178, 228, 0.1);
 }
 
@@ -698,9 +698,9 @@ export default {
 
 .tag-btn:hover,
 .tag-btn.active {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
-  border-color: #47b2e4;
+  border-color: #1acc8d;
 }
 
 /* Active Filters */
@@ -714,7 +714,7 @@ export default {
 .filter-tag {
   display: inline-flex;
   align-items: center;
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
   padding: 4px 10px;
   border-radius: 15px;
@@ -759,7 +759,7 @@ export default {
 }
 
 .filter-indicator {
-  color: #47b2e4;
+  color: #1acc8d;
   font-weight: 600;
 }
 
@@ -870,9 +870,9 @@ export default {
 }
 
 .tag-item.clickable:hover {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
-  border-color: #47b2e4;
+  border-color: #1acc8d;
 }
 
 .card-meta {
@@ -891,7 +891,7 @@ export default {
 }
 
 .meta-item i {
-  color: #47b2e4;
+  color: #1acc8d;
   width: 14px;
 }
 
@@ -912,7 +912,7 @@ export default {
 }
 
 .stat i {
-  color: #47b2e4;
+  color: #1acc8d;
 }
 /* Category Colors - Glass Effect */
 .category-ekonomi {
@@ -1075,16 +1075,16 @@ export default {
 }
 
 .page-link:hover {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
-  border-color: #47b2e4;
+  border-color: #1acc8d;
   transform: translateY(-1px);
 }
 
 .page-item.active .page-link {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
-  border-color: #47b2e4;
+  border-color: #1acc8d;
 }
 
 .page-item.disabled .page-link {
@@ -1132,7 +1132,7 @@ export default {
 
 /* Button Styling */
 .btn-primary {
-  background: linear-gradient(135deg, #47b2e4 0%, #209dd8 100%);
+  background: linear-gradient(135deg, #1acc8d 0%, #1ff4a9ff 100%);
   border: none;
   padding: 12px 24px;
   border-radius: 25px;
@@ -1146,8 +1146,8 @@ export default {
 }
 
 .btn-outline-primary {
-  border: 2px solid #47b2e4;
-  color: #47b2e4;
+  border: 2px solid #1acc8d;
+  color: #1acc8d;
   background: white;
   padding: 10px 20px;
   border-radius: 20px;
@@ -1156,7 +1156,7 @@ export default {
 }
 
 .btn-outline-primary:hover {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
   transform: translateY(-2px);
 }
@@ -1315,7 +1315,7 @@ export default {
 
 /* Focus States */
 .infografis-card:focus-within {
-  outline: 2px solid #47b2e4;
+  outline: 2px solid #1acc8d;
   outline-offset: 2px;
 }
 

@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-lg-12 text-center" data-aos="fade-up">
           <h1 class="display-4 text-white mb-4">Topik Open Data Kota Ternate</h1>
-          <p class="lead text-white-50 mb-4">
+          <p class="lead text-white mb-4">
             Jelajahi berbagai topik data yang tersedia di portal Open Data Ternate untuk kebutuhan
             informasi dan analisis Anda.
           </p>
@@ -32,7 +32,7 @@ export default {
 /* Hero Section */
 .topik-hero {
   background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
-  color: white;
+  color: #ffffffff;
   padding: 120px 0 80px !important;
   position: relative;
   overflow: hidden;

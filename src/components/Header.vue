@@ -54,17 +54,32 @@
           </li>
 
           <li>
-            <router-link to="/visualisasi" :class="{ active: $route.name === 'visualisasi' }">
+            <router-link
+              to="/visualisasi"
+              :class="{
+                active: $route.name === 'visualisasi' || $route.name === 'visualisasi-detail',
+              }"
+            >
               Visualisasi
             </router-link>
           </li>
           <li>
-            <router-link to="/infografis" :class="{ active: $route.name === 'infografis' }">
+            <router-link
+              to="/infografis"
+              :class="{
+                active: $route.name === 'infografis' || $route.name === 'InfografisDetail',
+              }"
+            >
               Infografis
             </router-link>
           </li>
           <li>
-            <router-link to="/organizations" :class="{ active: $route.name === 'organizations' }">
+            <router-link
+              to="/organizations"
+              :class="{
+                active: $route.name === 'organizations' || $route.name === 'organization-detail',
+              }"
+            >
               Organisasi
             </router-link>
           </li>

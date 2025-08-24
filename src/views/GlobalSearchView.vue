@@ -134,7 +134,7 @@
               </option>
             </select>
           </div>
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <input
               type="text"
               class="form-control"
@@ -142,7 +142,7 @@
               v-model="selectedTags"
               @keyup.enter="performSearch(true)"
             />
-          </div>
+          </div> -->
           <div class="col-md-3">
             <select class="form-select" v-model="sortBy" @change="performSearch(true)">
               <option value="relevance">Relevansi</option>
@@ -847,7 +847,7 @@ export default {
 .btn-primary {
   padding: 15px 30px;
   border: none;
-  background: linear-gradient(135deg, #47b2e4 0%, #209dd8 100%);
+  background: linear-gradient(135deg, #1acc8d 0%, #1ff4a9ff 100%);
   font-weight: 600;
 }
 
@@ -948,7 +948,7 @@ export default {
 .result-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border-color: #47b2e4;
+  border-color: #1acc8d;
 }
 
 .type-icon {
@@ -993,7 +993,7 @@ export default {
 }
 
 .item-title a:hover {
-  color: #47b2e4;
+  color: #1acc8d;
   text-decoration: underline;
 }
 
@@ -1196,14 +1196,14 @@ export default {
 }
 
 .page-link:hover {
-  color: #47b2e4;
+  color: #1acc8d;
   background-color: #f8f9fa;
-  border-color: #47b2e4;
+  border-color: #1acc8d;
 }
 
 .page-item.active .page-link {
-  background-color: #47b2e4;
-  border-color: #47b2e4;
+  background-color: #1acc8d;
+  border-color: #1acc8d;
   color: white;
 }
 

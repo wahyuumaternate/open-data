@@ -164,10 +164,10 @@
                 <div class="section-title">
                   <h3><i class="bx bx-chart"></i> Visualisasi Chart</h3>
                   <div class="chart-controls">
-                    <button @click="resetChart" class="btn btn-sm btn-outline-primary">
+                    <!-- <button @click="resetChart" class="btn btn-sm btn-outline-primary">
                       <i class="bi bi-arrow-clockwise"></i> Reset
-                    </button>
-                    <button @click="toggleChartSettings" class="btn btn-sm btn-outline-secondary">
+                    </button> -->
+                    <button @click="toggleChartSettings" class="btn btn-sm">
                       <i class="bi bi-gear"></i> Settings
                     </button>
                   </div>
@@ -371,13 +371,13 @@
               <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="250">
                 <h4><i class="bx bx-flash"></i> Quick Actions</h4>
                 <div class="download-list">
-                  <button @click="refreshData" class="download-btn">
+                  <!-- <button @click="refreshData" class="download-btn">
                     <div class="download-info">
                       <span class="format-name">Refresh Data</span>
                       <span class="file-size">Reload visualization data</span>
                     </div>
                     <i class="bi bi-arrow-clockwise"></i>
-                  </button>
+                  </button> -->
                   <button @click="shareVisualisasi" class="download-btn">
                     <div class="download-info">
                       <span class="format-name">Share Visualization</span>
@@ -1365,12 +1365,12 @@ export default {
 }
 
 .btn-download {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
 }
 
 .btn-download:hover {
-  background: #209dd8;
+  background: #1ff4a9ff;
   transform: translateY(-2px);
 }
 
@@ -1418,7 +1418,7 @@ export default {
 
 .section-title i {
   margin-right: 10px;
-  color: #47b2e4;
+  color: #1acc8d;
 }
 
 .chart-controls,
@@ -1549,7 +1549,7 @@ export default {
 
 .sidebar-widget h4 i {
   margin-right: 10px;
-  color: #47b2e4;
+  color: #1acc8d;
 }
 
 /* Stats Container */
@@ -1562,7 +1562,7 @@ export default {
 .stat-box {
   text-align: center;
   padding: 20px 15px;
-  background: linear-gradient(135deg, #47b2e4, #209dd8);
+  background: linear-gradient(135deg, #1acc8d, #1ff4a9ff);
   border-radius: 10px;
   color: white;
 }
@@ -1592,7 +1592,7 @@ export default {
   color: #37517e;
   margin-bottom: 15px;
   padding-bottom: 8px;
-  border-bottom: 2px solid #47b2e4;
+  border-bottom: 2px solid #1acc8d;
 }
 
 .metadata-item {
@@ -1647,7 +1647,7 @@ export default {
 }
 
 .download-btn:hover {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(71, 178, 228, 0.3);
@@ -1690,14 +1690,14 @@ export default {
 }
 
 .related-item:hover {
-  background: linear-gradient(135deg, #47b2e4, #209dd8);
+  background: linear-gradient(135deg, #1acc8d, #1ff4a9ff);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(71, 178, 228, 0.3);
 }
 
 .related-icon {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
   width: 50px;
   height: 50px;
@@ -1731,7 +1731,7 @@ export default {
 
 .related-content .topic {
   font-size: 12px;
-  color: #47b2e4;
+  color: #1acc8d;
   font-weight: 600;
   display: block;
   margin-bottom: 3px;
@@ -1843,7 +1843,7 @@ export default {
 }
 
 .dropdown-item:hover {
-  background-color: #47b2e4;
+  background-color: #1acc8d;
   color: white;
 }
 

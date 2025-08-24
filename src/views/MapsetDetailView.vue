@@ -203,7 +203,7 @@
                   <div class="map-legend">
                     <h6>Legend</h6>
                     <div class="legend-item">
-                      <div class="legend-color" style="background: #47b2e4"></div>
+                      <div class="legend-color" style="background: #1acc8d"></div>
                       <span>{{ mapset.topic }}</span>
                     </div>
                   </div>
@@ -445,10 +445,10 @@ export default {
       this.geoJsonLayer = L.geoJSON(this.mapset.geojson, {
         style: (feature) => {
           return {
-            color: '#47b2e4',
+            color: '#1acc8d',
             weight: 2,
             opacity: 0.8,
-            fillColor: '#47b2e4',
+            fillColor: '#1acc8d',
             fillOpacity: 0.3,
           }
         },
@@ -883,12 +883,12 @@ export default {
 }
 
 .btn-download {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
 }
 
 .btn-download:hover {
-  background: #209dd8;
+  background: #1ff4a9ff;
   transform: translateY(-2px);
 }
 
@@ -936,7 +936,7 @@ export default {
 
 .section-title i {
   margin-right: 10px;
-  color: #47b2e4;
+  color: #1acc8d;
 }
 
 .map-controls {
@@ -1045,7 +1045,7 @@ export default {
 }
 
 .feature-type {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
   padding: 4px 12px;
   border-radius: 15px;
@@ -1145,7 +1145,7 @@ export default {
 }
 
 .geometry-item i {
-  color: #47b2e4;
+  color: #1acc8d;
   font-size: 16px;
   width: 20px;
 }
@@ -1161,7 +1161,7 @@ export default {
   color: #37517e;
   margin-bottom: 12px;
   padding-bottom: 6px;
-  border-bottom: 2px solid #47b2e4;
+  border-bottom: 2px solid #1acc8d;
 }
 
 .description-item {
@@ -1185,7 +1185,7 @@ export default {
   padding: 10px;
   background: #f8f9fa;
   border-radius: 6px;
-  border-left: 3px solid #47b2e4;
+  border-left: 3px solid #1acc8d;
 }
 
 /* Modal Styles */
@@ -1302,7 +1302,7 @@ export default {
 }
 
 .download-btn:hover {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
   transform: translateY(-2px);
 }
@@ -1369,7 +1369,7 @@ export default {
 
 .related-content .topic {
   font-size: 12px;
-  color: #47b2e4;
+  color: #1acc8d;
   font-weight: 600;
   display: block;
   margin-bottom: 2px;

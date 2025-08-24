@@ -63,11 +63,11 @@
               </div>
 
               <div class="help-links">
-                <a href="#" class="help-link">
+                <router-link to="/bantuan" class="help-link">
                   <i class="bi bi-question-circle"></i>
                   Butuh Bantuan?
-                </a>
-                <a href="#" class="help-link">
+                </router-link>
+                <a href="#" class="help-link" @click.prevent>
                   <i class="bi bi-envelope"></i>
                   Hubungi Support
                 </a>

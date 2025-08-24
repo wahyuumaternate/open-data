@@ -958,12 +958,12 @@ export default {
 }
 
 .btn-download {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
 }
 
 .btn-download:hover {
-  background: #209dd8;
+  background: #1ff4a9ff;
   transform: translateY(-2px);
 }
 
@@ -1011,7 +1011,7 @@ export default {
 
 .section-title i {
   margin-right: 10px;
-  color: #47b2e4;
+  color: #1acc8d;
 }
 
 .image-controls {
@@ -1116,7 +1116,7 @@ export default {
   font-weight: 700;
   color: #37517e;
   margin-bottom: 15px;
-  border-bottom: 2px solid #47b2e4;
+  border-bottom: 2px solid #1acc8d;
   padding-bottom: 8px;
 }
 
@@ -1130,7 +1130,7 @@ export default {
   padding: 12px 15px;
   border-radius: 8px;
   margin-bottom: 8px;
-  border-left: 4px solid #47b2e4;
+  border-left: 4px solid #1acc8d;
   font-size: 14px;
 }
 
@@ -1156,9 +1156,9 @@ export default {
 }
 
 .tag-item.clickable:hover {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
-  border-color: #47b2e4;
+  border-color: #1acc8d;
   transform: translateY(-2px);
 }
 
@@ -1187,7 +1187,7 @@ export default {
 
 .sidebar-widget h4 i {
   margin-right: 10px;
-  color: #47b2e4;
+  color: #1acc8d;
 }
 
 .info-list {
@@ -1383,7 +1383,7 @@ export default {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #47b2e4 0%, #209dd8 100%);
+  background: linear-gradient(135deg, #1acc8d 0%, #1ff4a9ff 100%);
   color: white;
 }
 
@@ -1394,13 +1394,13 @@ export default {
 }
 
 .btn-outline-primary {
-  border: 2px solid #47b2e4;
-  color: #47b2e4;
+  border: 2px solid #1acc8d;
+  color: #1acc8d;
   background: transparent;
 }
 
 .btn-outline-primary:hover {
-  background: #47b2e4;
+  background: #1acc8d;
   color: white;
   transform: translateY(-2px);
 }
@@ -1721,12 +1721,12 @@ export default {
 /* Accessibility Improvements */
 .btn:focus,
 .form-control:focus {
-  outline: 2px solid #47b2e4;
+  outline: 2px solid #1acc8d;
   outline-offset: 2px;
 }
 
 .tag-item:focus {
-  outline: 2px solid #47b2e4;
+  outline: 2px solid #1acc8d;
   outline-offset: 2px;
 }
 
