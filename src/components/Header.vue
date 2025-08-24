@@ -25,11 +25,21 @@
             </router-link>
           </li>
           <li class="dropdown">
-            <a href="#" @click.prevent>
+            <a
+              href="#!"
+              @click.prevent
+              :class="{
+                active:
+                  $route.name === 'datasets' ||
+                  $route.name === 'mapsets' ||
+                  $route.name === 'mapset-detail' ||
+                  $route.name === 'dataset-detail',
+              }"
+            >
               <span>Koleksi Data</span>
-              <i class="bi bi-chevron-down"></i>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="">
               <li>
                 <router-link to="/datasets" :class="{ active: $route.name === 'datasets' }"
                   >Dataset</router-link
@@ -77,6 +87,7 @@ export default {
   data() {
     return {
       mobileMenuOpen: false,
+      dropdownOpen: null, // simpan index dropdown yang sedang terbuka
     }
   },
   methods: {
@@ -86,6 +97,10 @@ export default {
       if (navmenu) {
         navmenu.classList.toggle('mobile-menu-active')
       }
+    },
+    toggleDropdown(index) {
+      // kalau dropdown yang sama diklik → tutup, kalau beda → ganti
+      this.dropdownOpen = this.dropdownOpen === index ? null : index
     },
     scrollToSection(sectionId) {
       // Only scroll if we're on the home page
