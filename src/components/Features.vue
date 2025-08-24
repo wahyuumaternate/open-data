@@ -80,10 +80,10 @@ export default {
   },
   methods: {
     selectCategory(category) {
-      // Navigate to datasets page with category filter
+      // Navigate to search page with exact topic name (not lowercase)
       this.$router.push({
-        name: 'datasets',
-        query: { topic: category.name.toLowerCase() },
+        name: 'search',
+        query: { topic: category.name }, // Pass exact name, not lowercase
       })
     },
   },

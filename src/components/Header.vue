@@ -26,7 +26,7 @@
           </li>
           <li class="dropdown">
             <a
-              href="#!"
+              href="#"
               @click.prevent
               :class="{
                 active:

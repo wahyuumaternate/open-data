@@ -1,6 +1,149 @@
 <template>
+  <!-- Skeleton Loading State -->
+  <div v-if="loading" class="loading-state">
+    <!-- Hero Section Skeleton -->
+    <section class="infografis-hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-2 text-center">
+            <div class="skeleton skeleton-icon"></div>
+          </div>
+          <div class="col-lg-8">
+            <div class="infografis-info">
+              <div class="skeleton skeleton-category mb-3"></div>
+              <div class="skeleton skeleton-title mb-3"></div>
+              <div class="skeleton skeleton-description mb-4"></div>
+              <div class="infografis-meta">
+                <div class="skeleton skeleton-meta" v-for="n in 6" :key="n"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="download-panel">
+              <div class="skeleton skeleton-button mb-2" v-for="n in 3" :key="n"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Skeleton -->
+    <section class="section-bg">
+      <div class="container">
+        <div class="row">
+          <!-- Main Content Skeleton -->
+          <div class="col-lg-8">
+            <!-- Infografis Image Section Skeleton -->
+            <div class="infografis-section">
+              <div class="section-title">
+                <div class="skeleton skeleton-section-title"></div>
+                <div class="image-controls">
+                  <div class="skeleton skeleton-control-btn" v-for="n in 2" :key="n"></div>
+                </div>
+              </div>
+              <div class="skeleton skeleton-image"></div>
+            </div>
+
+            <!-- Additional Information Skeleton -->
+            <div class="additional-info-section">
+              <div class="section-title">
+                <div class="skeleton skeleton-section-title"></div>
+              </div>
+              <div class="info-content">
+                <!-- Data Sources Skeleton -->
+                <div class="info-section">
+                  <div class="skeleton skeleton-info-title mb-3"></div>
+                  <div class="skeleton skeleton-info-item mb-2" v-for="n in 3" :key="n"></div>
+                </div>
+
+                <!-- Methodology Skeleton -->
+                <div class="info-section">
+                  <div class="skeleton skeleton-info-title mb-3"></div>
+                  <div class="skeleton skeleton-info-text mb-2" v-for="n in 2" :key="n"></div>
+                </div>
+
+                <!-- Tags Skeleton -->
+                <div class="info-section">
+                  <div class="skeleton skeleton-info-title mb-3"></div>
+                  <div class="tags-container">
+                    <div class="skeleton skeleton-tag" v-for="n in 5" :key="n"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar Skeleton -->
+          <div class="col-lg-4">
+            <div class="sidebar">
+              <!-- Quick Info Card Skeleton -->
+              <div class="sidebar-widget">
+                <div class="skeleton skeleton-widget-title mb-3"></div>
+                <div class="info-list">
+                  <div class="info-item" v-for="n in 6" :key="n">
+                    <div class="skeleton skeleton-info-label"></div>
+                    <div class="skeleton skeleton-info-value"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Share Card Skeleton -->
+              <div class="sidebar-widget">
+                <div class="skeleton skeleton-widget-title mb-3"></div>
+                <div class="share-buttons mb-3">
+                  <div class="skeleton skeleton-share-btn" v-for="n in 4" :key="n"></div>
+                </div>
+                <div class="share-link-container">
+                  <div class="skeleton skeleton-share-input"></div>
+                  <div class="skeleton skeleton-share-copy-btn"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Section Skeleton -->
+    <div class="related-section">
+      <div class="container">
+        <div class="skeleton skeleton-related-title mb-5"></div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-4" v-for="n in 3" :key="n">
+            <div class="related-card">
+              <div class="skeleton skeleton-related-image"></div>
+              <div class="card-body">
+                <div class="skeleton skeleton-related-title mb-2"></div>
+                <div class="skeleton skeleton-related-desc mb-3"></div>
+                <div class="skeleton skeleton-related-btn"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div v-else-if="error" class="error-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <div class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle-fill mb-3" style="font-size: 48px"></i>
+            <h4>Terjadi Kesalahan</h4>
+            <p>{{ error }}</p>
+            <button @click="fetchInfografis" class="btn btn-outline-danger">
+              <i class="bi bi-arrow-clockwise me-2"></i>Coba Lagi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Content -->
-  <div v-if="!loading && !error && infografis" class="main-content">
+  <div v-else-if="!loading && !error && infografis" class="main-content">
     <!-- Infografis Hero Section -->
     <section id="infografis-hero" class="infografis-hero">
       <div class="container" data-aos="fade-up">
@@ -78,7 +221,7 @@
           <div class="col-lg-8">
             <!-- Infografis Image Section -->
             <div class="infografis-section" data-aos="fade-up" data-aos-delay="100">
-              <div class="section-title">
+              <!-- <div class="section-title">
                 <h3><i class="bx bx-image"></i> Infografis</h3>
                 <div class="image-controls">
                   <button @click="toggleFullscreen" class="btn btn-sm btn-outline-primary">
@@ -88,7 +231,7 @@
                     <i class="bi bi-download"></i> Download
                   </button>
                 </div>
-              </div>
+              </div> -->
 
               <!-- Image Container -->
               <div class="image-container" :class="{ fullscreen: isFullscreen }">
@@ -276,6 +419,16 @@
       </div>
     </div>
   </div>
+
+  <!-- Toast Notification -->
+  <div v-if="showToast" class="toast-container">
+    <div class="toast show">
+      <div class="toast-body">
+        <i :class="toastIcon"></i>
+        {{ toastMessage }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -350,8 +503,11 @@ export default {
       this.error = null
 
       try {
-        const slug = this.$route.params.slug || this.$route.params.id
-        const response = await axios.get(`${this.apiUrl}infografis/${slug}`)
+        // Simulate minimum loading time for better UX
+        const [response] = await Promise.all([
+          axios.get(`${this.apiUrl}infografis/${this.$route.params.slug || this.$route.params.id}`),
+          new Promise((resolve) => setTimeout(resolve, 800)), // Minimum 800ms loading
+        ])
 
         if (response.data.success) {
           const data = response.data.data
@@ -472,11 +628,6 @@ export default {
       this.$router.push(`/infografis?tag=${encodeURIComponent(tag)}`)
     },
 
-    goToRandomInfografis() {
-      // This would need to be implemented based on your API
-      this.$router.push('/infografis?random=1')
-    },
-
     showToastMessage(message, icon) {
       this.toastMessage = message
       this.toastIcon = icon
@@ -531,7 +682,184 @@ export default {
 </script>
 
 <style scoped>
-/* Replace or update the existing styles in your infografis detail component */
+/* Skeleton Loading Styles */
+.loading-state {
+  min-height: 100vh;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Hero Section Skeleton */
+.skeleton-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+}
+
+.skeleton-category {
+  width: 120px;
+  height: 32px;
+  border-radius: 20px;
+}
+
+.skeleton-title {
+  width: 85%;
+  height: 44px;
+  border-radius: 8px;
+}
+
+.skeleton-description {
+  width: 95%;
+  height: 20px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.skeleton-meta {
+  width: 100px;
+  height: 18px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.skeleton-button {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+}
+
+/* Main Content Skeleton */
+.skeleton-section-title {
+  width: 200px;
+  height: 28px;
+  border-radius: 8px;
+}
+
+.skeleton-control-btn {
+  width: 100px;
+  height: 32px;
+  border-radius: 8px;
+  margin-left: 8px;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+}
+
+.skeleton-info-title {
+  width: 150px;
+  height: 22px;
+  border-radius: 8px;
+}
+
+.skeleton-info-item {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+}
+
+.skeleton-info-text {
+  width: 95%;
+  height: 18px;
+  border-radius: 8px;
+}
+
+.skeleton-tag {
+  width: 80px;
+  height: 32px;
+  border-radius: 20px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+/* Sidebar Skeleton */
+.skeleton-widget-title {
+  width: 180px;
+  height: 22px;
+  border-radius: 8px;
+}
+
+.skeleton-info-label {
+  width: 80px;
+  height: 16px;
+  border-radius: 8px;
+}
+
+.skeleton-info-value {
+  width: 120px;
+  height: 16px;
+  border-radius: 8px;
+}
+
+.skeleton-share-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.skeleton-share-input {
+  flex: 1;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.skeleton-share-copy-btn {
+  width: 40px;
+  height: 32px;
+  border-radius: 8px;
+  margin-left: 8px;
+}
+
+/* Related Section Skeleton */
+.skeleton-related-title {
+  width: 280px;
+  height: 36px;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+.skeleton-related-image {
+  width: 100%;
+  height: 200px;
+  border-radius: 15px 15px 0 0;
+}
+
+.related-card .skeleton-related-title {
+  width: 85%;
+  height: 20px;
+  border-radius: 8px;
+}
+
+.skeleton-related-desc {
+  width: 95%;
+  height: 16px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.skeleton-related-btn {
+  width: 110px;
+  height: 32px;
+  border-radius: 20px;
+}
 
 /* Hero Section - Matching Mapset Detail Style */
 .infografis-hero {
@@ -1122,6 +1450,99 @@ export default {
   color: #ef4444;
 }
 
+/* Error States */
+.loading-section,
+.error-section {
+  padding: 60px 0;
+  background: #f8f9fa;
+}
+
+.alert {
+  border-radius: 15px;
+  padding: 25px;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #991b1b;
+}
+
+.btn-outline-danger {
+  border: 2px solid #dc3545;
+  color: #721c24;
+  background: transparent;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+  background: #dc3545;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Enhanced Loading Animation for Skeleton */
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-shimmer::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+  content: '';
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Skeleton Pulse Animation */
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Loading State Improvements */
+.loading-state .infografis-hero {
+  padding: 120px 0 80px;
+}
+
+.loading-state .section-bg {
+  padding: 80px 0;
+}
+
+.loading-state .related-section {
+  padding: 80px 0;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .infografis-hero {
@@ -1168,12 +1589,35 @@ export default {
     gap: 15px;
   }
 
-  .infografis-icon-container {
+  .infografis-icon-container,
+  .loading-state .skeleton-icon {
     display: none;
   }
 
   .sidebar {
     margin-top: 40px;
+  }
+
+  /* Mobile Skeleton Adjustments */
+  .loading-state .infografis-hero {
+    padding: 40px 0 30px;
+  }
+
+  .loading-state .section-bg,
+  .loading-state .related-section {
+    padding: 40px 0;
+  }
+
+  .skeleton-meta {
+    margin-bottom: 15px;
+  }
+
+  .skeleton-image {
+    height: 250px;
+  }
+
+  .skeleton-related-image {
+    height: 150px;
   }
 }
 
@@ -1229,13 +1673,28 @@ export default {
     width: 100%;
   }
 
-  .infografis-icon-container {
-    display: none;
+  /* Small Mobile Skeleton Adjustments */
+  .skeleton-title {
+    height: 28px;
+  }
+
+  .skeleton-description {
+    height: 16px;
+  }
+
+  .skeleton-image {
+    height: 200px;
+  }
+
+  .skeleton-related-title {
+    width: 280px;
+    height: 24px;
   }
 }
 
 /* Print Styles */
 @media print {
+  .loading-state,
   .sidebar,
   .download-panel,
   .image-controls,
@@ -1259,108 +1718,6 @@ export default {
   }
 }
 
-/* Loading and Error States */
-.loading-section,
-.error-section {
-  padding: 60px 0;
-  background: #f8f9fa;
-}
-
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
-  border-radius: 8px;
-}
-
-.skeleton-title {
-  height: 40px;
-  width: 70%;
-  margin-bottom: 20px;
-}
-
-.skeleton-image {
-  height: 400px;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.skeleton-description {
-  height: 20px;
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.skeleton-sidebar {
-  height: 300px;
-  width: 100%;
-}
-
-@keyframes skeleton-loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-/* Alert Styling */
-.alert {
-  border-radius: 15px;
-  padding: 25px;
-  border: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.alert-danger {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  color: #991b1b;
-}
-
-.btn-outline-danger {
-  border: 2px solid #dc3545;
-  color: #721c24;
-  background: transparent;
-  font-weight: 600;
-  padding: 8px 20px;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-
-.btn-outline-danger:hover {
-  background: #dc3545;
-  color: white;
-  transform: translateY(-2px);
-}
-
-/* Breadcrumb Section */
-.breadcrumb-section {
-  background: #f8f9fa;
-  padding: 20px 0;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.breadcrumb {
-  margin: 0;
-  background: none;
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-  content: '>';
-  color: #6c757d;
-}
-
-.breadcrumb-item a {
-  color: #47b2e4;
-  text-decoration: none;
-}
-
-.breadcrumb-item.active {
-  color: #37517e;
-  font-weight: 600;
-}
-
 /* Accessibility Improvements */
 .btn:focus,
 .form-control:focus {
@@ -1371,6 +1728,41 @@ export default {
 .tag-item:focus {
   outline: 2px solid #47b2e4;
   outline-offset: 2px;
+}
+
+/* Category Classes for Dynamic Styling */
+.category-ekonomi {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-infrastruktur {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-kemiskinan {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-kependudukan {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-kesehatan {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-lingkungan {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-pariwisata {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-pemerintah {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-pendidikan {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-sosial {
+  background: rgba(107, 114, 128, 0.2);
+}
+.category-default {
+  background: rgba(107, 114, 128, 0.2);
 }
 
 /* Animation Enhancements */
@@ -1391,18 +1783,23 @@ export default {
   animation: fadeInUp 0.6s ease-out;
 }
 
-/* Loading Animation */
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .skeleton-loading,
+  .skeleton-pulse,
+  .skeleton-shimmer::after {
+    animation: none;
   }
-  50% {
-    opacity: 0.5;
-  }
-}
 
-.loading-section .skeleton {
-  animation: pulse 1.5s ease-in-out infinite;
+  .infografis-section,
+  .additional-info-section,
+  .sidebar > div {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+  }
 }
 </style>

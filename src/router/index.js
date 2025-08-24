@@ -8,8 +8,7 @@ import MapsetsView from '@/views/MapsetsView.vue'
 import MapsetDetailView from '@/views/MapsetDetailView.vue'
 import InfografisPage from '@/views/InfografisPage.vue'
 import InfografisDetailPage from '@/views/InfografisDetailPage.vue'
-import TopikView from '@/views/TopikView.vue'
-// import InfografisDetailPage from '@/views/InfografisDetailPage.vue'
+import GlobalSearchView from '@/views/GlobalSearchView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -138,6 +137,15 @@ const router = createRouter({
       meta: {
         title: 'Topik - Open Data Ternate',
         description: 'Informasi bantuan portal Open Data Ternate dan kontak',
+      },
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import('@/views/GlobalSearchView.vue'),
+      meta: {
+        title: 'Pencarian Global - Open Data Ternate',
+        description: 'Cari dataset, mapset, infografis, dan visualisasi dalam satu tempat',
       },
     },
     // Catch all 404
