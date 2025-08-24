@@ -407,7 +407,7 @@ export default {
         // Create map
         this.map = L.map('mapset-map', {
           zoomControl: true,
-          attributionControl: true,
+          attributionControl: false,
         })
 
         // Base layers
