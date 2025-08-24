@@ -137,4 +137,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+header {
+  z-index: 9999;
+}
+</style>

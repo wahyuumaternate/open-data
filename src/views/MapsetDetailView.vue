@@ -315,7 +315,7 @@ export default {
       geoJsonLayer: null,
       selectedFeature: null,
       showLayerPanel: false,
-      selectedBaseLayer: 'osm',
+      selectedBaseLayer: 'satellite',
       showFeatures: true,
       baseLayers: {},
       showDescriptionModal: false,
@@ -427,7 +427,7 @@ export default {
         }
 
         // Add default base layer
-        this.baseLayers.osm.addTo(this.map)
+        this.baseLayers.satellite.addTo(this.map)
 
         // Add GeoJSON data
         this.addGeoJSONLayer()
@@ -467,7 +467,7 @@ export default {
             layer.setStyle({
               weight: 3,
               opacity: 1,
-              fillOpacity: 0.5,
+              fillOpacity: 0.8,
             })
           })
 
@@ -793,7 +793,7 @@ export default {
 /* Hero Section */
 .mapset-hero {
   padding-top: 120px !important;
-   background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
+  background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
   color: white;
 }
 
