@@ -864,7 +864,7 @@ export default {
 /* Hero Section - Matching Mapset Detail Style */
 .infografis-hero {
   padding-top: 120px !important;
-  background: linear-gradient(135deg, #040677 0%, #040677 100%);
+   background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
   color: white;
 }
 
