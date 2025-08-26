@@ -15,8 +15,8 @@
 
         <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-in">
           <h1>
-            Temukan Data tentang Kota Ternate untuk
-            <br />
+            Temukan Data tentang Kota Ternate untuk Mendukung
+            <!-- <br /> -->
             <span class="typing-text text-primary"
               >{{ currentText }}<span class="typing-cursor">|</span></span
             >
@@ -105,19 +105,14 @@ export default {
       typingTimeout: null,
       typingWords: [
         'Penelitian',
-        'Bisnis',
-        'Pendidikan',
-        'Kesehatan',
-        'Transportasi',
-        'Ekonomi',
-        'Pariwisata',
-        'Investasi',
+        'Riset',
+        'Studi',
+        'Tugas',
         'Inovasi',
         'Kebijakan',
         'Analisis',
         'Perencanaan',
         'Pembangunan',
-        'Transparansi',
       ],
 
       // Search functionality

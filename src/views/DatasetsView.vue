@@ -834,4 +834,11 @@ export default {
     repeat;
   opacity: 0.3;
 }
+
+.dataset-image-container img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
 </style>
