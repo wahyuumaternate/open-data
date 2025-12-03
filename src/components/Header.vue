@@ -20,7 +20,7 @@
                         </router-link>
                     </li>
                     <li class="dropdown">
-                        <a href="#" @click.prevent
+                        <a href="/datasets" @click.prevent
                             :class="{
                                 active: $route.name === 'datasets' ||
                                     $route.name === 'mapsets' ||
