@@ -1,472 +1,475 @@
 <template>
-  <div class="not-found-page">
-    <!-- Hero Section with Gradient Background -->
-    <section class="error-hero">
-      <div class="container">
-        <div class="row align-items-center min-vh-100">
-          <div class="col-lg-6 order-lg-2" data-aos="fade-left">
-            <div class="error-illustration">
-              <!-- 404 SVG Illustration -->
+    <div class="not-found-page">
+        <!-- Hero Section with Gradient Background -->
+        <section class="error-hero">
+            <div class="container">
+                <div class="row align-items-center min-vh-100">
+                    <div class="col-lg-6 order-lg-2" data-aos="fade-left">
+                        <div class="error-illustration">
+                            <!-- 404 SVG Illustration -->
 
-              <img src="@/assets/img/404.svg" alt="404 Illustration" />
-            </div>
-          </div>
+                            <img src="@/assets/img/404.svg" alt="404 Illustration" />
+                        </div>
+                    </div>
 
-          <div class="col-lg-6 order-lg-1" data-aos="fade-right">
-            <div class="error-content">
-              <div class="error-badge">
-                <i class="bi bi-exclamation-triangle"></i>
-                <span>Error 404</span>
-              </div>
+                    <div class="col-lg-6 order-lg-1" data-aos="fade-right">
+                        <div class="error-content">
+                            <div class="error-badge">
+                                <i class="bi bi-exclamation-triangle"></i>
+                                <span>Error 404</span>
+                            </div>
 
-              <h1 class="error-title">
-                Halaman Tidak
-                <span class="gradient-text">Ditemukan</span>
-              </h1>
+                            <h1 class="error-title">
+                                Halaman Tidak
+                                <span class="gradient-text">Ditemukan</span>
+                            </h1>
 
-              <p class="error-description">
-                Oops! Sepertinya halaman yang Anda cari telah berpindah ke dimensi lain atau mungkin
-                sedang bersembunyi dari kita. Jangan khawatir, mari kita bawa Anda kembali ke jalur
-                yang benar.
-              </p>
+                            <p class="error-description">
+                                Oops! Sepertinya halaman yang Anda cari telah berpindah ke dimensi lain atau mungkin
+                                sedang bersembunyi dari kita. Jangan khawatir, mari kita bawa Anda kembali ke jalur
+                                yang benar.
+                            </p>
 
-              <div class="error-stats">
-                <div class="stat-item">
-                  <div class="stat-icon">
-                    <i class="bi bi-search"></i>
-                  </div>
-                  <div class="stat-content">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Hasil Ditemukan</span>
-                  </div>
+                            <div class="error-stats">
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="bi bi-search"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <span class="stat-number">0</span>
+                                        <span class="stat-label">Hasil Ditemukan</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="bi bi-clock"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <span class="stat-number">404</span>
+                                        <span class="stat-label">Error Code</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="error-actions">
+                                <router-link to="/" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-house-fill"></i>
+                                    <span>Kembali ke Beranda</span>
+                                </router-link>
+                                <router-link to="/datasets" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-database"></i>
+                                    <span>Lihat Dataset</span>
+                                </router-link>
+                            </div>
+
+                            <!-- <div class="help-links">
+                                <router-link to="/bantuan" class="help-link">
+                                    <i class="bi bi-question-circle"></i>
+                                    Butuh Bantuan?
+                                </router-link>
+                                <a href="#" class="help-link" @click.prevent>
+                                    <i class="bi bi-envelope"></i>
+                                    Hubungi Support
+                                </a>
+                            </div> -->
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-item">
-                  <div class="stat-icon">
-                    <i class="bi bi-clock"></i>
-                  </div>
-                  <div class="stat-content">
-                    <span class="stat-number">404</span>
-                    <span class="stat-label">Error Code</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="error-actions">
-                <router-link to="/" class="btn btn-primary btn-lg">
-                  <i class="bi bi-house-fill"></i>
-                  <span>Kembali ke Beranda</span>
-                </router-link>
-                <router-link to="/datasets" class="btn btn-outline-primary btn-lg">
-                  <i class="bi bi-database"></i>
-                  <span>Lihat Dataset</span>
-                </router-link>
-              </div>
-
-              <div class="help-links">
-                <router-link to="/bantuan" class="help-link">
-                  <i class="bi bi-question-circle"></i>
-                  Butuh Bantuan?
-                </router-link>
-                <a href="#" class="help-link" @click.prevent>
-                  <i class="bi bi-envelope"></i>
-                  Hubungi Support
-                </a>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Floating Background Elements -->
-      <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-      </div>
-    </section>
-  </div>
+            <!-- Floating Background Elements -->
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'NotFoundView',
-  mounted() {
-    // Initialize AOS if available
-    if (typeof AOS !== 'undefined') {
-      AOS.init({
-        duration: 1000,
-        easing: 'ease-out-cubic',
-        once: true,
-        offset: 100,
-      })
+    export default {
+        name: 'NotFoundView',
+        mounted() {
+            // Initialize AOS if available
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 1000,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 100,
+                })
+            }
+
+            // Add some interactive effects
+            this.addInteractiveEffects()
+        },
+
+        methods: {
+            addInteractiveEffects() {
+                // Add mouse move parallax effect
+                document.addEventListener('mousemove', (e) => {
+                    const shapes = document.querySelectorAll('.floating-shapes .shape')
+                    const x = e.clientX / window.innerWidth
+                    const y = e.clientY / window.innerHeight
+
+                    shapes.forEach((shape, index) => {
+                        const speed = (index + 1) * 0.5
+                        const xPos = (x - 0.5) * speed * 50
+                        const yPos = (y - 0.5) * speed * 50
+
+                        shape.style.transform =
+                            `translate(${xPos}px, ${yPos}px) rotate(${xPos * 0.1}deg)`
+                    })
+                })
+            },
+        },
     }
-
-    // Add some interactive effects
-    this.addInteractiveEffects()
-  },
-
-  methods: {
-    addInteractiveEffects() {
-      // Add mouse move parallax effect
-      document.addEventListener('mousemove', (e) => {
-        const shapes = document.querySelectorAll('.floating-shapes .shape')
-        const x = e.clientX / window.innerWidth
-        const y = e.clientY / window.innerHeight
-
-        shapes.forEach((shape, index) => {
-          const speed = (index + 1) * 0.5
-          const xPos = (x - 0.5) * speed * 50
-          const yPos = (y - 0.5) * speed * 50
-
-          shape.style.transform = `translate(${xPos}px, ${yPos}px) rotate(${xPos * 0.1}deg)`
-        })
-      })
-    },
-  },
-}
 </script>
 
 <style scoped>
-.not-found-page {
-  min-height: 100vh;
-  background: #ffffff;
-  position: relative;
-  overflow: hidden;
-}
+    .not-found-page {
+        min-height: 100vh;
+        background: #ffffff;
+        position: relative;
+        overflow: hidden;
+    }
 
-.error-hero {
-  background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
-  color: white;
-  padding: 120px 0 80px !important;
-  position: relative;
-  overflow: hidden;
-}
-.error-hero {
-  position: relative;
-  z-index: 2;
-}
+    .error-hero {
+        background: #1581BF;
+        color: white;
+        padding: 120px 0 80px !important;
+        position: relative;
+        overflow: hidden;
+    }
 
-/* Error Content Styles */
-.error-content {
-  padding: 2rem 0;
-}
+    .error-hero {
+        position: relative;
+        z-index: 2;
+    }
 
-.error-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-}
+    /* Error Content Styles */
+    .error-content {
+        padding: 2rem 0;
+    }
 
-.error-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  color: #1e293b;
-  margin-bottom: 1.5rem;
-}
+    .error-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, #3b82f6, #1581BF);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
 
-.gradient-text {
-  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+    .error-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        color: #1e293b;
+        margin-bottom: 1.5rem;
+    }
 
-.error-description {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #64748b;
-  margin-bottom: 2rem;
-  max-width: 500px;
-}
+    .gradient-text {
+        color: #ffffff;
+        background-clip: text;
+    }
 
-/* Stats Section */
-.error-stats {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
+    .error-description {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #fff;
+        margin-bottom: 2rem;
+        max-width: 500px;
+    }
 
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 1rem 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
+    /* Stats Section */
+    .error-stats {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
 
-.stat-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.2rem;
-}
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        padding: 1rem 1.5rem;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
 
-.stat-content {
-  display: flex;
-  flex-direction: column;
-}
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
 
-.stat-number {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1e40af;
-  line-height: 1;
-}
+    .stat-content {
+        display: flex;
+        flex-direction: column;
+    }
 
-.stat-label {
-  font-size: 0.85rem;
-  color: #64748b;
-}
+    .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e40af;
+        line-height: 1;
+    }
 
-/* Action Buttons */
-.error-actions {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
+    .stat-label {
+        font-size: 0.85rem;
+        color: #ffffff;
+    }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 2rem;
-  border-radius: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
+    /* Action Buttons */
+    .error-actions {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
 
-.btn-primary {
-  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-  color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-}
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
-  color: white;
-}
+    .btn-primary {
+        background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+        color: white;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    }
 
-.btn-outline-primary {
-  background: #ffffff;
-  color: #3b82f6;
-  border-color: #3b82f6;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-}
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        color: white;
+    }
 
-.btn-outline-primary:hover {
-  background: #3b82f6;
-  transform: translateY(-2px);
-  color: white;
-  border-color: #3b82f6;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-}
+    .btn-outline-primary {
+        background: #ffffff;
+        color: #3b82f6;
+        border-color: #3b82f6;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+    }
 
-/* Help Links */
-.help-links {
-  display: flex;
-  gap: 2rem;
-}
+    .btn-outline-primary:hover {
+        background: #3b82f6;
+        transform: translateY(-2px);
+        color: #ffffff;
+        border-color: #3b82f6;
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
 
-.help-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #64748b;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
+    /* Help Links */
+    .help-links {
+        color: #ffffff;
+        display: flex;
+        gap: 2rem;
+    }
 
-.help-link:hover {
-  color: #3b82f6;
-  transform: translateX(5px);
-}
+    .help-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
 
-/* SVG Illustration */
-.error-illustration {
-  position: relative;
-}
+    .help-link:hover {
+        color: #3b82f6;
+        transform: translateX(5px);
+    }
 
-.error-svg {
-  width: 100%;
-  height: auto;
-  max-width: 600px;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
-}
+    /* SVG Illustration */
+    .error-illustration {
+        position: relative;
+    }
 
-/* Floating Background Shapes */
-.floating-shapes {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
+    .error-svg {
+        width: 100%;
+        height: auto;
+        max-width: 600px;
+        filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+    }
 
-.shape {
-  position: absolute;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(29, 78, 216, 0.1));
-  border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
-}
+    /* Floating Background Shapes */
+    .floating-shapes {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
 
-.shape-1 {
-  width: 80px;
-  height: 80px;
-  top: 10%;
-  left: 10%;
-  animation-delay: 0s;
-}
+    .shape {
+        position: absolute;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(29, 78, 216, 0.1));
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+    }
 
-.shape-2 {
-  width: 60px;
-  height: 60px;
-  top: 20%;
-  right: 15%;
-  animation-delay: 2s;
-}
+    .shape-1 {
+        width: 80px;
+        height: 80px;
+        top: 10%;
+        left: 10%;
+        animation-delay: 0s;
+    }
 
-.shape-3 {
-  width: 100px;
-  height: 100px;
-  bottom: 20%;
-  left: 15%;
-  animation-delay: 4s;
-}
+    .shape-2 {
+        width: 60px;
+        height: 60px;
+        top: 20%;
+        right: 15%;
+        animation-delay: 2s;
+    }
 
-.shape-4 {
-  width: 40px;
-  height: 40px;
-  bottom: 10%;
-  right: 20%;
-  animation-delay: 1s;
-}
+    .shape-3 {
+        width: 100px;
+        height: 100px;
+        bottom: 20%;
+        left: 15%;
+        animation-delay: 4s;
+    }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(180deg);
-  }
-}
+    .shape-4 {
+        width: 40px;
+        height: 40px;
+        bottom: 10%;
+        right: 20%;
+        animation-delay: 1s;
+    }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .error-title {
-    font-size: 2.5rem;
-  }
+    @keyframes float {
 
-  .error-stats {
-    flex-direction: column;
-    gap: 1rem;
-  }
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
 
-  .stat-item {
-    padding: 0.75rem 1rem;
-  }
+        50% {
+            transform: translateY(-20px) rotate(180deg);
+        }
+    }
 
-  .error-actions {
-    flex-direction: column;
-  }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .error-title {
+            font-size: 2.5rem;
+        }
 
-  .btn {
-    justify-content: center;
-    width: 100%;
-  }
+        .error-stats {
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-  .help-links {
-    flex-direction: column;
-    gap: 1rem;
-  }
+        .stat-item {
+            padding: 0.75rem 1rem;
+        }
 
-  .error-svg {
-    max-width: 400px;
-  }
+        .error-actions {
+            flex-direction: column;
+        }
 
-  .floating-shapes .shape {
-    display: none;
-  }
-}
+        .btn {
+            justify-content: center;
+            width: 100%;
+        }
 
-@media (max-width: 576px) {
-  .error-title {
-    font-size: 2rem;
-  }
+        .help-links {
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-  .error-description {
-    font-size: 1rem;
-  }
+        .error-svg {
+            max-width: 400px;
+        }
 
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
+        .floating-shapes .shape {
+            display: none;
+        }
+    }
 
-/* Dark mode compatibility */
-@media (prefers-color-scheme: dark) {
-  .not-found-page {
-    background: #0f172a;
-  }
+    @media (max-width: 576px) {
+        .error-title {
+            font-size: 2rem;
+        }
 
-  .error-title {
-    color: #f1f5f9;
-  }
+        .error-description {
+            font-size: 1rem;
+        }
 
-  .error-description {
-    color: #94a3b8;
-  }
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
 
-  .stat-item {
-    background: #1e293b;
-    border-color: #334155;
-  }
+    /* Dark mode compatibility */
+    @media (prefers-color-scheme: dark) {
+        .not-found-page {
+            background: #0f172a;
+        }
 
-  .stat-number {
-    color: #f1f5f9;
-  }
+        .error-title {
+            color: #f1f5f9;
+        }
 
-  .stat-label {
-    color: #94a3b8;
-  }
+        .error-description {
+            color: #ffffff;
+        }
 
-  .help-link {
-    color: #94a3b8;
-  }
+        .stat-item {
+            background: #1e293b;
+            border-color: #334155;
+        }
 
-  .help-link:hover {
-    color: #3b82f6;
-  }
+        .stat-number {
+            color: #f1f5f9;
+        }
 
-  .btn-outline-primary {
-    background: #1e293b;
-    border-color: #3b82f6;
-  }
-}
+        .stat-label {
+            color: #94a3b8;
+        }
+
+        .help-link {
+            color: #94a3b8;
+        }
+
+        .help-link:hover {
+            color: #3b82f6;
+        }
+
+        .btn-outline-primary {
+            background: #1e293b;
+            border-color: #3b82f6;
+        }
+    }
 </style>

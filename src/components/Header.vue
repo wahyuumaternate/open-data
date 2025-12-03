@@ -3,7 +3,7 @@
         <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
             <router-link to="/" class="logo d-flex align-items-center">
                 <!-- ✅ Fixed path - gunakan public folder -->
-                <img src="../assets/img/logo.png" alt="Logo Portal Data Ternate" />
+                <img src="../assets/img/logo2.png" alt="Logo Portal Data Ternate" />
             </router-link>
 
             <nav id="navmenu" class="navmenu">

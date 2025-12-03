@@ -503,7 +503,7 @@ export default {
 <style scoped>
 /* Hero Section */
 .mapsets-hero {
-  background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
+  background: #1581BF;
   color: white;
   padding: 120px 0 80px !important;
   position: relative;

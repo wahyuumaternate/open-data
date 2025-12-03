@@ -712,7 +712,7 @@ export default {
 /* Dataset Hero Section */
 .dataset-hero {
   padding-top: 120px !important;
-  background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
+  background: #1581BF;
   color: white;
 }
 
