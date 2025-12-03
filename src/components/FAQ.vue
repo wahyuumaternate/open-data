@@ -5,9 +5,9 @@
       <div class="row gy-4">
         <div class="col-lg-7 d-flex flex-column justify-content-center order-2 order-lg-1">
           <div class="content px-xl-5" data-aos="fade-up" data-aos-delay="100">
-            <h3><span>Mengapa menggunakan </span><strong>Open Data Ternate?</strong></h3>
+            <h3><span>Mengapa menggunakan </span><strong>Satu Data Ternate?</strong></h3>
             <p>
-              Temukan alasan mengapa Open Data Ternate menjadi pilihan terbaik untuk kebutuhan data
+              Temukan alasan mengapa Satu Data Ternate menjadi pilihan terbaik untuk kebutuhan data
               pemerintahan Anda.
             </p>
           </div>

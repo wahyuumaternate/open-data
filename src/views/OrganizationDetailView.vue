@@ -588,7 +588,7 @@ export default {
             visualisasi: [],
           }
           this.statistics = response.data.data.statistics || {}
-          document.title = `${this.organization.name} - Open Data Ternate`
+          document.title = `${this.organization.name} - Satu Data Ternate`
         } else {
           throw new Error(response.data.message || 'Failed to fetch organization')
         }

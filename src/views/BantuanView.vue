@@ -4,9 +4,9 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-lg-12 text-center" data-aos="fade-up">
-          <h1 class="display-4 text-white mb-4">Bantuan Open Data Kota Ternate</h1>
+          <h1 class="display-4 text-white mb-4">Bantuan Satu Data Kota Ternate</h1>
           <p class="lead text-white-50 mb-4">
-            Panduan penggunaan portal Open Data Ternate untuk mengakses, mencari, dan mengunduh data
+            Panduan penggunaan portal Satu Data Ternate untuk mengakses, mencari, dan mengunduh data
             publik.
           </p>
         </div>
@@ -19,7 +19,7 @@
     <div class="container p-4 mb-4 card">
       <h2>Panduan Dasar</h2>
       <p>
-        Portal <strong>Open Data Kota Ternate</strong> menyediakan berbagai dataset resmi yang dapat
+        Portal <strong>Satu Data Kota Ternate</strong> menyediakan berbagai dataset resmi yang dapat
         digunakan untuk penelitian, perencanaan, maupun kebutuhan publik. Berikut beberapa informasi
         penting:
       </p>
@@ -87,7 +87,7 @@
           </h2>
           <div id="faqCollapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
             <div class="accordion-body">
-              Silakan hubungi admin Open Data Ternate melalui menu kontak atau email resmi
+              Silakan hubungi admin Satu Data Ternate melalui menu kontak atau email resmi
               pemerintah kota.
             </div>
           </div>

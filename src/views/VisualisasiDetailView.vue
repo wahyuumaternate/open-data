@@ -562,7 +562,7 @@ export default {
             }
           }
 
-          document.title = `${this.visualisasi.nama} - Open Data Ternate`
+          document.title = `${this.visualisasi.nama} - Satu Data Ternate`
 
           // Mock related visualizations (in real app, fetch from API)
           this.relatedVisualizations = [

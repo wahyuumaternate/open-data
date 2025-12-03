@@ -517,7 +517,7 @@ export default {
           this.metadata = data.metadata || {}
 
           // Update page title
-          document.title = `${this.infografis.nama} - Open Data Ternate`
+          document.title = `${this.infografis.nama} - Satu Data Ternate`
         } else {
           throw new Error(response.data.message || 'Failed to fetch infografis')
         }

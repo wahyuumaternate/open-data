@@ -4,7 +4,7 @@
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="/" class="logo d-flex align-items-center">
-            <span class="sitename">Open Data Ternate</span>
+            <span class="sitename">Satu Data Ternate</span>
           </a>
           <div class="footer-contact pt-3">
             <p>Kantor Walikota Ternate Lt. 3</p>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Open Data Ternate</h4>
+          <h4>Satu Data Ternate</h4>
           <ul>
             <li><a href="#" @click.prevent>Tentang</a></li>
             <li><a href="#" @click.prevent>Ketentuan Penggunaan</a></li>

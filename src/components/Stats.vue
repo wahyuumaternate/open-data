@@ -4,9 +4,9 @@
     <div class="container" data-aos="fade-up" data-aos-delay="100">
       <!-- Judul Section -->
       <div class="section-header text-center mb-5">
-        <h2>Statistik Open Data</h2>
+        <h2>Statistik Satu Data</h2>
         <p class="text-muted">
-          Rangkuman jumlah data yang tersedia di portal Open Data Kota Ternate.
+          Rangkuman jumlah data yang tersedia di portal Satu Data Kota Ternate.
         </p>
       </div>
 

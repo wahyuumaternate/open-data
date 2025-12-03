@@ -385,7 +385,7 @@ export default {
         if (response.data.success) {
           this.dataset = response.data.data.dataset
 
-          document.title = `${this.dataset.title} - Open Data Ternate`
+          document.title = `${this.dataset.title} - Satu Data Ternate`
           // Initialize DataTable after data is loaded
           this.$nextTick(() => {
             setTimeout(() => {

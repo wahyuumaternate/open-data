@@ -5,9 +5,9 @@
       <div class="row align-items-xl-center gy-5">
         <div class="col-xl-5 content">
           <h3>Tentang</h3>
-          <h2>Open Data Kota Ternate</h2>
+          <h2>Satu Data Kota Ternate</h2>
           <p>
-            Portal Open Data Kota Ternate menyediakan akses publik terhadap berbagai dataset
+            Portal Satu Data Kota Ternate menyediakan akses publik terhadap berbagai dataset
             pemerintahan untuk mendukung transparansi, inovasi, dan pembangunan berkelanjutan di
             Kota Ternate.
           </p>

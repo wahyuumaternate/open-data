@@ -373,7 +373,7 @@ export default {
 
         if (response.data.success) {
           this.mapset = response.data.data.mapset
-          document.title = `${this.mapset.title} - Open Data Ternate`
+          document.title = `${this.mapset.title} - Satu Data Ternate`
           // Initialize map after data is loaded
           this.$nextTick(() => {
             setTimeout(() => {

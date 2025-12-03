@@ -4,9 +4,9 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-lg-12 text-center" data-aos="fade-up">
-          <h1 class="display-4 text-white mb-4">Topik Open Data Kota Ternate</h1>
+          <h1 class="display-4 text-white mb-4">Topik Satu Data Kota Ternate</h1>
           <p class="lead text-white mb-4">
-            Jelajahi berbagai topik data yang tersedia di portal Open Data Ternate untuk kebutuhan
+            Jelajahi berbagai topik data yang tersedia di portal Satu Data Ternate untuk kebutuhan
             informasi dan analisis Anda.
           </p>
         </div>

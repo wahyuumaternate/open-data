@@ -1,789 +1,772 @@
 <template>
-  <div class="organizations-simple">
-    <!-- Hero Section -->
-    <section class="organizations-hero">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-8">
-            <div class="hero-content" data-aos="fade-up">
-              <h1 class="hero-title">Organisasi</h1>
-              <p class="hero-description">
-                Dapatkan daftar Organisasi Perangkat Daerah (OPD) yang berkontribusi dalam membangun
-                ekosistem data yang terbuka dan terpercaya melalui publikasi data di Open Data
-                Ternate.
-              </p>
-              <div class="hero-stats" v-if="!loading && stats.total">
-                <div class="stat-item-hero">
-                  <i class="bi bi-building"></i>
-                  <span>{{ stats.total.toLocaleString('id-ID') }} Organisasi</span>
+    <div class="organizations-simple">
+        <!-- Hero Section -->
+        <section class="organizations-hero">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="hero-content" data-aos="fade-up">
+                            <h1 class="hero-title">Organisasi</h1>
+                            <p class="hero-description">
+                                Dapatkan daftar Organisasi Perangkat Daerah (OPD) yang berkontribusi dalam membangun
+                                ekosistem data yang terbuka dan terpercaya melalui publikasi data di Satu Data
+                                Ternate.
+                            </p>
+                            <div class="hero-stats" v-if="!loading && stats.total">
+                                <div class="stat-item-hero">
+                                    <i class="bi bi-building"></i>
+                                    <span>{{ stats . total . toLocaleString('id-ID') }} Organisasi</span>
+                                </div>
+                                <div class="stat-item-hero">
+                                    <i class="bi bi-globe"></i>
+                                    <span>{{ stats . with_website . toLocaleString('id-ID') }} Dengan Website</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
+                            <img src="@/assets/img/organization.svg" alt="Organisasi" class="img-fluid" />
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-item-hero">
-                  <i class="bi bi-globe"></i>
-                  <span>{{ stats.with_website.toLocaleString('id-ID') }} Dengan Website</span>
+            </div>
+        </section>
+
+        <div class="container py-5">
+            <!-- Header -->
+            <div class="header-section mb-5" style="display: none">
+                <h1 class="page-title">Organisasi</h1>
+                <p class="page-description">
+                    Dapatkan daftar Perangkat Daerah (PD) yang berkontribusi dalam membangun ekosistem data
+                    yang terbuka dan terpercaya melalui publikasi data di Satu Data Kota Ternate.
+                </p>
+            </div>
+
+            <!-- Search and Filter Section -->
+            <div class="search-filter-section mb-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="search-box">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <i class="bi bi-search text-muted"></i>
+                                </span>
+                                <input type="text" class="form-control border-start-0" placeholder="Cari organisasi"
+                                    v-model="searchQuery" @input="filterOrganizations" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="result-count">
+                                <strong>{{ filteredOrganizations . length }}</strong> Organisasi ditemukan
+                            </div>
+                            <div class="sort-section">
+                                <label class="me-2">Urutkan :</label>
+                                <select class="form-select form-select-sm d-inline-block w-auto" v-model="sortBy"
+                                    @change="sortOrganizations">
+                                    <option value="name">Abjad</option>
+                                    <option value="content_desc">Konten Terbanyak</option>
+                                    <option value="newest">Terbaru</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
-              <img src="@/assets/img/organization.svg" alt="Organisasi" class="img-fluid" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <div class="container py-5">
-      <!-- Header -->
-      <div class="header-section mb-5" style="display: none">
-        <h1 class="page-title">Organisasi</h1>
-        <p class="page-description">
-          Dapatkan daftar Perangkat Daerah (PD) yang berkontribusi dalam membangun ekosistem data
-          yang terbuka dan terpercaya melalui publikasi data di Open Data Jabar.
-        </p>
-      </div>
+            <!-- Loading State with Skeleton -->
+            <div v-if="loading" class="organizations-grid">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6" v-for="n in 12" :key="n">
+                        <div class="organization-card skeleton-card">
+                            <!-- Skeleton Logo -->
+                            <div class="org-logo-container">
+                                <div class="skeleton skeleton-logo"></div>
+                            </div>
 
-      <!-- Search and Filter Section -->
-      <div class="search-filter-section mb-4">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <div class="search-box">
-              <div class="input-group">
-                <span class="input-group-text bg-white border-end-0">
-                  <i class="bi bi-search text-muted"></i>
-                </span>
-                <input
-                  type="text"
-                  class="form-control border-start-0"
-                  placeholder="Cari organisasi"
-                  v-model="searchQuery"
-                  @input="filterOrganizations"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="result-count">
-                <strong>{{ filteredOrganizations.length }}</strong> Organisasi ditemukan
-              </div>
-              <div class="sort-section">
-                <label class="me-2">Urutkan :</label>
-                <select
-                  class="form-select form-select-sm d-inline-block w-auto"
-                  v-model="sortBy"
-                  @change="sortOrganizations"
-                >
-                  <option value="name">Abjad</option>
-                  <option value="content_desc">Konten Terbanyak</option>
-                  <option value="newest">Terbaru</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                            <!-- Skeleton Content -->
+                            <div class="org-content">
+                                <!-- Skeleton Name -->
+                                <div class="skeleton skeleton-name mb-3"></div>
 
-      <!-- Loading State with Skeleton -->
-      <div v-if="loading" class="organizations-grid">
-        <div class="row g-4">
-          <div class="col-lg-4 col-md-6" v-for="n in 12" :key="n">
-            <div class="organization-card skeleton-card">
-              <!-- Skeleton Logo -->
-              <div class="org-logo-container">
-                <div class="skeleton skeleton-logo"></div>
-              </div>
-
-              <!-- Skeleton Content -->
-              <div class="org-content">
-                <!-- Skeleton Name -->
-                <div class="skeleton skeleton-name mb-3"></div>
-
-                <!-- Skeleton Stats -->
-                <div class="org-stats">
-                  <div class="skeleton-stat-item">
-                    <div class="skeleton skeleton-icon"></div>
-                    <div class="skeleton skeleton-number"></div>
-                  </div>
-                  <div class="skeleton-stat-item">
-                    <div class="skeleton skeleton-icon"></div>
-                    <div class="skeleton skeleton-number"></div>
-                  </div>
-                  <div class="skeleton-stat-item">
-                    <div class="skeleton skeleton-icon"></div>
-                    <div class="skeleton skeleton-number"></div>
-                  </div>
-                  <div class="skeleton-stat-item">
-                    <div class="skeleton skeleton-icon"></div>
-                    <div class="skeleton skeleton-number"></div>
-                  </div>
+                                <!-- Skeleton Stats -->
+                                <div class="org-stats">
+                                    <div class="skeleton-stat-item">
+                                        <div class="skeleton skeleton-icon"></div>
+                                        <div class="skeleton skeleton-number"></div>
+                                    </div>
+                                    <div class="skeleton-stat-item">
+                                        <div class="skeleton skeleton-icon"></div>
+                                        <div class="skeleton skeleton-number"></div>
+                                    </div>
+                                    <div class="skeleton-stat-item">
+                                        <div class="skeleton skeleton-icon"></div>
+                                        <div class="skeleton skeleton-number"></div>
+                                    </div>
+                                    <div class="skeleton-stat-item">
+                                        <div class="skeleton skeleton-icon"></div>
+                                        <div class="skeleton skeleton-number"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Error State -->
-      <div v-if="error" class="alert alert-danger" role="alert">
-        <i class="bi bi-exclamation-triangle me-2"></i>
-        {{ error }}
-        <button @click="fetchOrganizations" class="btn btn-outline-danger btn-sm ms-2">
-          Coba Lagi
-        </button>
-      </div>
+            <!-- Error State -->
+            <div v-if="error" class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                {{ error }}
+                <button @click="fetchOrganizations" class="btn btn-outline-danger btn-sm ms-2">
+                    Coba Lagi
+                </button>
+            </div>
 
-      <!-- Organizations Grid -->
-      <div v-if="!loading && !error" class="organizations-grid">
-        <div class="row g-4">
-          <div
-            class="col-lg-4 col-md-6"
-            v-for="organization in paginatedOrganizations"
-            :key="organization.id"
-          >
-            <div
-              class="organization-card"
-              @click="viewOrganization(organization)"
-              :title="`Lihat detail ${organization.name}`"
-            >
-              <!-- Logo -->
-              <div class="org-logo-container">
-                <img
-                  :src="organization.logo_url"
-                  :alt="organization.name"
-                  class="org-logo"
-                  @error="handleImageError"
-                />
-              </div>
+            <!-- Organizations Grid -->
+            <div v-if="!loading && !error" class="organizations-grid">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6" v-for="organization in paginatedOrganizations"
+                        :key="organization.id">
+                        <div class="organization-card" @click="viewOrganization(organization)"
+                            :title="`Lihat detail ${organization.name}`">
+                            <!-- Logo -->
+                            <div class="org-logo-container">
+                                <img :src="organization.logo_url" :alt="organization.name" class="org-logo"
+                                    @error="handleImageError" />
+                            </div>
 
-              <!-- Content -->
-              <div class="org-content">
-                <h6 class="org-name">{{ organization.name }}</h6>
+                            <!-- Content -->
+                            <div class="org-content">
+                                <h6 class="org-name">{{ organization . name }}</h6>
 
-                <!-- Stats -->
-                <div class="org-stats">
-                  <div class="stat-item">
-                    <i class="bi bi-database text-success"></i>
-                    <span>{{ organization.total_datasets || 0 }}</span>
-                  </div>
-                  <div class="stat-item">
-                    <i class="bi bi-bar-chart text-info"></i>
-                    <span>{{ organization.total_infografis || 0 }}</span>
-                  </div>
-                  <div class="stat-item">
-                    <i class="bi bi-map text-warning"></i>
-                    <span>{{ organization.total_mapsets || 0 }}</span>
-                  </div>
-                  <div class="stat-item">
-                    <i class="bi bi-eye text-primary"></i>
-                    <span>{{ organization.total_visualisasi || 0 }}</span>
-                  </div>
+                                <!-- Stats -->
+                                <div class="org-stats">
+                                    <div class="stat-item">
+                                        <i class="bi bi-database text-success"></i>
+                                        <span>{{ organization . total_datasets || 0 }}</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="bi bi-bar-chart text-info"></i>
+                                        <span>{{ organization . total_infografis || 0 }}</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="bi bi-map text-warning"></i>
+                                        <span>{{ organization . total_mapsets || 0 }}</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="bi bi-eye text-primary"></i>
+                                        <span>{{ organization . total_visualisasi || 0 }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <!-- Empty State -->
+                <div v-if="filteredOrganizations.length === 0" class="text-center py-5">
+                    <i class="bi bi-search display-4 text-muted"></i>
+                    <h5 class="mt-3">Organisasi tidak ditemukan</h5>
+                    <p class="text-muted">Coba ubah kata kunci pencarian Anda</p>
+                    <button class="btn btn-primary" @click="clearSearch">Reset Pencarian</button>
+                </div>
+
+                <!-- Pagination -->
+                <nav v-if="totalPages > 1" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                            <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">
+                                <i class="bi bi-chevron-left"></i>
+                            </a>
+                        </li>
+
+                        <li class="page-item" v-for="page in visiblePages" :key="page"
+                            :class="{ active: page === currentPage }">
+                            <a class="page-link" href="#"
+                                @click.prevent="changePage(page)">{{ page }}</a>
+                        </li>
+
+                        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                            <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-          </div>
         </div>
-
-        <!-- Empty State -->
-        <div v-if="filteredOrganizations.length === 0" class="text-center py-5">
-          <i class="bi bi-search display-4 text-muted"></i>
-          <h5 class="mt-3">Organisasi tidak ditemukan</h5>
-          <p class="text-muted">Coba ubah kata kunci pencarian Anda</p>
-          <button class="btn btn-primary" @click="clearSearch">Reset Pencarian</button>
-        </div>
-
-        <!-- Pagination -->
-        <nav v-if="totalPages > 1" class="mt-5">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" :class="{ disabled: currentPage === 1 }">
-              <a class="page-link" href="#" @click.prevent="changePage(currentPage - 1)">
-                <i class="bi bi-chevron-left"></i>
-              </a>
-            </li>
-
-            <li
-              class="page-item"
-              v-for="page in visiblePages"
-              :key="page"
-              :class="{ active: page === currentPage }"
-            >
-              <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-            </li>
-
-            <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-              <a class="page-link" href="#" @click.prevent="changePage(currentPage + 1)">
-                <i class="bi bi-chevron-right"></i>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
-import axios from 'axios'
+    import axios from 'axios'
 
-export default {
-  name: 'OrganizationsSimple',
-  data() {
-    return {
-      // API Configuration
-      apiUrl: import.meta.env.VITE_API_URL,
+    export default {
+        name: 'OrganizationsSimple',
+        data() {
+            return {
+                // API Configuration
+                apiUrl: import.meta.env.VITE_API_URL,
 
-      // States
-      loading: false,
-      error: null,
-      searchQuery: '',
-      sortBy: 'name',
-      currentPage: 1,
-      itemsPerPage: 12,
+                // States
+                loading: false,
+                error: null,
+                searchQuery: '',
+                sortBy: 'name',
+                currentPage: 1,
+                itemsPerPage: 12,
 
-      // Data
-      organizations: [],
-      stats: {},
+                // Data
+                organizations: [],
+                stats: {},
+            }
+        },
+
+        computed: {
+            filteredOrganizations() {
+                let filtered = this.organizations
+
+                // Search filter
+                if (this.searchQuery.trim()) {
+                    const query = this.searchQuery.toLowerCase()
+                    filtered = filtered.filter(
+                        (org) => org.name.toLowerCase().includes(query) || org.code.toLowerCase().includes(query)
+                    )
+                }
+
+                return filtered
+            },
+
+            sortedOrganizations() {
+                const sorted = [...this.filteredOrganizations]
+
+                switch (this.sortBy) {
+                    case 'name':
+                        return sorted.sort((a, b) => a.name.localeCompare(b.name))
+                    case 'content_desc':
+                        return sorted.sort((a, b) => (b.total_content || 0) - (a.total_content || 0))
+                    case 'newest':
+                        return sorted.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+                    default:
+                        return sorted
+                }
+            },
+
+            totalPages() {
+                return Math.ceil(this.sortedOrganizations.length / this.itemsPerPage)
+            },
+
+            paginatedOrganizations() {
+                const start = (this.currentPage - 1) * this.itemsPerPage
+                const end = start + this.itemsPerPage
+                return this.sortedOrganizations.slice(start, end)
+            },
+
+            visiblePages() {
+                const pages = []
+                const total = this.totalPages
+                const current = this.currentPage
+
+                if (total <= 7) {
+                    for (let i = 1; i <= total; i++) {
+                        pages.push(i)
+                    }
+                } else {
+                    if (current <= 4) {
+                        for (let i = 1; i <= 5; i++) {
+                            pages.push(i)
+                        }
+                        pages.push('...')
+                        pages.push(total)
+                    } else if (current >= total - 3) {
+                        pages.push(1)
+                        pages.push('...')
+                        for (let i = total - 4; i <= total; i++) {
+                            pages.push(i)
+                        }
+                    } else {
+                        pages.push(1)
+                        pages.push('...')
+                        for (let i = current - 1; i <= current + 1; i++) {
+                            pages.push(i)
+                        }
+                        pages.push('...')
+                        pages.push(total)
+                    }
+                }
+
+                return pages
+            },
+        },
+
+        async mounted() {
+            await this.fetchOrganizations()
+
+            // Initialize AOS
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: true,
+                })
+            }
+        },
+
+        methods: {
+            async fetchOrganizations() {
+                this.loading = true
+                this.error = null
+
+                try {
+                    // Pastikan tidak ada double slash
+                    const apiUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl
+                    const response = await axios.get(`${apiUrl}/organizations`)
+
+                    if (response.data.success) {
+                        this.organizations = response.data.data.organizations
+                        this.stats = response.data.data.stats || {}
+                    } else {
+                        throw new Error(response.data.message || 'Failed to fetch organizations')
+                    }
+                } catch (error) {
+                    console.error('Error fetching organizations:', error)
+                    this.error = 'Gagal memuat organisasi. Silakan coba lagi.'
+                    this.organizations = []
+                } finally {
+                    this.loading = false
+                }
+            },
+
+            filterOrganizations() {
+                this.currentPage = 1
+            },
+
+            sortOrganizations() {
+                this.currentPage = 1
+            },
+
+            clearSearch() {
+                this.searchQuery = ''
+                this.currentPage = 1
+            },
+
+            changePage(page) {
+                if (page >= 1 && page <= this.totalPages) {
+                    this.currentPage = page
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
+                }
+            },
+
+            handleImageError(event) {
+                event.target.src = '/assets/img/default-organization.png'
+            },
+
+            viewOrganization(organization) {
+                // Navigate to organization detail page using slug
+                this.$router.push(`/organization/${organization.slug}`)
+            },
+        },
     }
-  },
-
-  computed: {
-    filteredOrganizations() {
-      let filtered = this.organizations
-
-      // Search filter
-      if (this.searchQuery.trim()) {
-        const query = this.searchQuery.toLowerCase()
-        filtered = filtered.filter(
-          (org) => org.name.toLowerCase().includes(query) || org.code.toLowerCase().includes(query)
-        )
-      }
-
-      return filtered
-    },
-
-    sortedOrganizations() {
-      const sorted = [...this.filteredOrganizations]
-
-      switch (this.sortBy) {
-        case 'name':
-          return sorted.sort((a, b) => a.name.localeCompare(b.name))
-        case 'content_desc':
-          return sorted.sort((a, b) => (b.total_content || 0) - (a.total_content || 0))
-        case 'newest':
-          return sorted.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-        default:
-          return sorted
-      }
-    },
-
-    totalPages() {
-      return Math.ceil(this.sortedOrganizations.length / this.itemsPerPage)
-    },
-
-    paginatedOrganizations() {
-      const start = (this.currentPage - 1) * this.itemsPerPage
-      const end = start + this.itemsPerPage
-      return this.sortedOrganizations.slice(start, end)
-    },
-
-    visiblePages() {
-      const pages = []
-      const total = this.totalPages
-      const current = this.currentPage
-
-      if (total <= 7) {
-        for (let i = 1; i <= total; i++) {
-          pages.push(i)
-        }
-      } else {
-        if (current <= 4) {
-          for (let i = 1; i <= 5; i++) {
-            pages.push(i)
-          }
-          pages.push('...')
-          pages.push(total)
-        } else if (current >= total - 3) {
-          pages.push(1)
-          pages.push('...')
-          for (let i = total - 4; i <= total; i++) {
-            pages.push(i)
-          }
-        } else {
-          pages.push(1)
-          pages.push('...')
-          for (let i = current - 1; i <= current + 1; i++) {
-            pages.push(i)
-          }
-          pages.push('...')
-          pages.push(total)
-        }
-      }
-
-      return pages
-    },
-  },
-
-  async mounted() {
-    await this.fetchOrganizations()
-
-    // Initialize AOS
-    if (typeof AOS !== 'undefined') {
-      AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-      })
-    }
-  },
-
-  methods: {
-    async fetchOrganizations() {
-      this.loading = true
-      this.error = null
-
-      try {
-        // Pastikan tidak ada double slash
-        const apiUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl
-        const response = await axios.get(`${apiUrl}/organizations`)
-
-        if (response.data.success) {
-          this.organizations = response.data.data.organizations
-          this.stats = response.data.data.stats || {}
-        } else {
-          throw new Error(response.data.message || 'Failed to fetch organizations')
-        }
-      } catch (error) {
-        console.error('Error fetching organizations:', error)
-        this.error = 'Gagal memuat organisasi. Silakan coba lagi.'
-        this.organizations = []
-      } finally {
-        this.loading = false
-      }
-    },
-
-    filterOrganizations() {
-      this.currentPage = 1
-    },
-
-    sortOrganizations() {
-      this.currentPage = 1
-    },
-
-    clearSearch() {
-      this.searchQuery = ''
-      this.currentPage = 1
-    },
-
-    changePage(page) {
-      if (page >= 1 && page <= this.totalPages) {
-        this.currentPage = page
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
-    },
-
-    handleImageError(event) {
-      event.target.src = '/assets/img/default-organization.png'
-    },
-
-    viewOrganization(organization) {
-      // Navigate to organization detail page using slug
-      this.$router.push(`/organization/${organization.slug}`)
-    },
-  },
-}
 </script>
 
 <style scoped>
-.organizations-simple {
-  background-color: #f8f9fa;
-  min-height: 100vh;
-}
+    .organizations-simple {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+    }
 
-/* Hero Section */
-.organizations-hero {
-  background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
-  color: white;
-  padding: 120px 0 80px !important;
-  position: relative;
-  overflow: hidden;
-}
+    /* Hero Section */
+    .organizations-hero {
+        background: linear-gradient(135deg, #040677 0%, #1e40af 100%);
+        color: white;
+        padding: 120px 0 80px !important;
+        position: relative;
+        overflow: hidden;
+    }
 
-.organizations-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>')
-    repeat;
-  opacity: 0.3;
-}
+    .organizations-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+        opacity: 0.3;
+    }
 
-.hero-title {
-  color: #ffffff;
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  line-height: 1.2;
-}
+    .hero-title {
+        color: #ffffff;
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
 
-.hero-description {
-  font-size: 18px;
-  line-height: 1.8;
-  margin-bottom: 30px;
-  opacity: 0.9;
-}
+    .hero-description {
+        font-size: 18px;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
 
-.hero-stats {
-  display: flex;
-  gap: 30px;
-}
+    .hero-stats {
+        display: flex;
+        gap: 30px;
+    }
 
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 600;
-}
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        font-weight: 600;
+    }
 
-.stat-item i {
-  font-size: 20px;
-}
+    .stat-item i {
+        font-size: 20px;
+    }
 
-.hero-image img {
-  max-width: 100%;
-  height: auto;
-}
+    .hero-image img {
+        max-width: 100%;
+        height: auto;
+    }
 
-.container {
-  max-width: 1200px;
-}
+    .container {
+        max-width: 1200px;
+    }
 
-/* Header */
-.header-section {
-  text-align: left;
-}
+    /* Header */
+    .header-section {
+        text-align: left;
+    }
 
-.page-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #212529;
-  margin-bottom: 1rem;
-}
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #212529;
+        margin-bottom: 1rem;
+    }
 
-.page-description {
-  color: #6c757d;
-  font-size: 1rem;
-  line-height: 1.6;
-  max-width: 800px;
-}
+    .page-description {
+        color: #6c757d;
+        font-size: 1rem;
+        line-height: 1.6;
+        max-width: 800px;
+    }
 
-/* Search and Filter */
-.search-filter-section {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    /* Search and Filter */
+    .search-filter-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-.search-box .input-group-text {
-  border-color: #dee2e6;
-}
+    .search-box .input-group-text {
+        border-color: #dee2e6;
+    }
 
-.search-box .form-control {
-  border-color: #dee2e6;
-}
+    .search-box .form-control {
+        border-color: #dee2e6;
+    }
 
-.search-box .form-control:focus {
-  border-color: #86b7fe;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
+    .search-box .form-control:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
 
-.result-count {
-  color: #6c757d;
-  font-size: 0.9rem;
-}
+    .result-count {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
 
-.sort-section {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-}
+    .sort-section {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+    }
 
-.sort-section label {
-  color: #6c757d;
-  margin-bottom: 0;
-}
+    .sort-section label {
+        color: #6c757d;
+        margin-bottom: 0;
+    }
 
-/* Organizations Grid */
-.organizations-grid {
-  margin-top: 2rem;
-}
+    /* Organizations Grid */
+    .organizations-grid {
+        margin-top: 2rem;
+    }
 
-.organization-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e9ecef;
-  transition: all 0.3s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-}
+    .organization-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+    }
 
-.organization-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
+    .organization-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
 
-.org-logo-container {
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80px;
-}
+    .org-logo-container {
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
+    }
 
-.org-logo {
-  max-width: 80px;
-  max-height: 80px;
-  object-fit: contain;
-  border-radius: 8px;
-}
+    .org-logo {
+        max-width: 80px;
+        max-height: 80px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
 
-.org-content {
-  flex: 1;
-}
+    .org-content {
+        flex: 1;
+    }
 
-.org-name {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #212529;
-  margin-bottom: 1rem;
-  line-height: 1.4;
-  min-height: 2.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .org-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #212529;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+        min-height: 2.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.org-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  justify-items: center;
-}
+    .org-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        justify-items: center;
+    }
 
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #6c757d;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: #6c757d;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
 
-.stat-item i {
-  font-size: 20px;
-  color: #0d6efd;
-}
-.stat-item-hero {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-}
+    .stat-item i {
+        font-size: 20px;
+        color: #0d6efd;
+    }
 
-.stat-item-hero i {
-  font-size: 20px;
-  color: #fff;
-}
+    .stat-item-hero {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 500;
+    }
 
-/* Pagination */
-.pagination {
-  margin-top: 2rem;
-}
+    .stat-item-hero i {
+        font-size: 20px;
+        color: #fff;
+    }
 
-.page-link {
-  color: #6c757d;
-  border: 1px solid #dee2e6;
-  padding: 0.5rem 0.75rem;
-}
+    /* Pagination */
+    .pagination {
+        margin-top: 2rem;
+    }
 
-.page-link:hover {
-  color: #0d6efd;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
-}
+    .page-link {
+        color: #6c757d;
+        border: 1px solid #dee2e6;
+        padding: 0.5rem 0.75rem;
+    }
 
-.page-item.active .page-link {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
+    .page-link:hover {
+        color: #0d6efd;
+        background-color: #e9ecef;
+        border-color: #dee2e6;
+    }
 
-/* Loading and Error States */
-.spinner-border {
-  width: 3rem;
-  height: 3rem;
-}
+    .page-item.active .page-link {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
 
-/* Skeleton Loading Styles */
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
-  border-radius: 4px;
-}
+    /* Loading and Error States */
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+    }
 
-@keyframes skeleton-loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
+    /* Skeleton Loading Styles */
+    .skeleton {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s infinite;
+        border-radius: 4px;
+    }
 
-.skeleton-card {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  pointer-events: none;
-}
+    @keyframes skeleton-loading {
+        0% {
+            background-position: 200% 0;
+        }
 
-.skeleton-logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
-  margin: 0 auto;
-}
+        100% {
+            background-position: -200% 0;
+        }
+    }
 
-.skeleton-name {
-  height: 20px;
-  width: 85%;
-  margin: 0 auto;
-  border-radius: 4px;
-}
+    .skeleton-card {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        pointer-events: none;
+    }
 
-.skeleton-stat-item {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  justify-content: center;
-}
+    .skeleton-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        margin: 0 auto;
+    }
 
-.skeleton-icon {
-  width: 14px;
-  height: 14px;
-  border-radius: 2px;
-}
+    .skeleton-name {
+        height: 20px;
+        width: 85%;
+        margin: 0 auto;
+        border-radius: 4px;
+    }
 
-.skeleton-number {
-  width: 20px;
-  height: 12px;
-  border-radius: 2px;
-}
+    .skeleton-stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        justify-content: center;
+    }
 
-/* Empty State */
-.display-4 {
-  font-size: 2.5rem;
-  opacity: 0.5;
-}
+    .skeleton-icon {
+        width: 14px;
+        height: 14px;
+        border-radius: 2px;
+    }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .organizations-hero {
-    padding: 80px 0 60px;
-    text-align: center;
-  }
+    .skeleton-number {
+        width: 20px;
+        height: 12px;
+        border-radius: 2px;
+    }
 
-  .hero-title {
-    font-size: 32px;
-  }
+    /* Empty State */
+    .display-4 {
+        font-size: 2.5rem;
+        opacity: 0.5;
+    }
 
-  .hero-description {
-    font-size: 16px;
-  }
+    /* Responsive */
+    @media (max-width: 768px) {
+        .organizations-hero {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
 
-  .hero-stats {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
+        .hero-title {
+            font-size: 32px;
+        }
 
-  .page-title {
-    font-size: 2rem;
-  }
+        .hero-description {
+            font-size: 16px;
+        }
 
-  .search-filter-section {
-    padding: 1rem;
-  }
+        .hero-stats {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-  .search-filter-section .row > div {
-    margin-bottom: 1rem;
-  }
+        .page-title {
+            font-size: 2rem;
+        }
 
-  .search-filter-section .row > div:last-child {
-    margin-bottom: 0;
-  }
+        .search-filter-section {
+            padding: 1rem;
+        }
 
-  .sort-section {
-    justify-content: space-between;
-  }
+        .search-filter-section .row>div {
+            margin-bottom: 1rem;
+        }
 
-  .organization-card {
-    padding: 1rem;
-  }
+        .search-filter-section .row>div:last-child {
+            margin-bottom: 0;
+        }
 
-  .org-logo-container {
-    height: 60px;
-  }
+        .sort-section {
+            justify-content: space-between;
+        }
 
-  .org-logo {
-    max-width: 60px;
-    max-height: 60px;
-  }
+        .organization-card {
+            padding: 1rem;
+        }
 
-  .org-name {
-    font-size: 0.9rem;
-    min-height: 2.4rem;
-  }
+        .org-logo-container {
+            height: 60px;
+        }
 
-  .org-stats {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-  }
+        .org-logo {
+            max-width: 60px;
+            max-height: 60px;
+        }
 
-  .stat-item {
-    font-size: 0.75rem;
-    gap: 0.3rem;
-  }
+        .org-name {
+            font-size: 0.9rem;
+            min-height: 2.4rem;
+        }
 
-  .stat-item i {
-    font-size: 0.8rem;
-  }
-}
+        .org-stats {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
 
-@media (max-width: 576px) {
-  .hero-title {
-    font-size: 24px;
-  }
+        .stat-item {
+            font-size: 0.75rem;
+            gap: 0.3rem;
+        }
 
-  .sort-section {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
+        .stat-item i {
+            font-size: 0.8rem;
+        }
+    }
 
-  .organizations-grid {
-    margin-top: 1rem;
-  }
-}
+    @media (max-width: 576px) {
+        .hero-title {
+            font-size: 24px;
+        }
+
+        .sort-section {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .organizations-grid {
+            margin-top: 1rem;
+        }
+    }
 </style>
