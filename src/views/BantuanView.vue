@@ -515,7 +515,7 @@
                 Tim kami siap membantu Anda. Jangan ragu untuk menghubungi kami melalui saluran berikut:
             </p>
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-4 mb-3">
                     <div class="contact-card p-4 text-center h-100">
                         <i class="bi bi-envelope-fill text-primary fs-1 mb-3"></i>
@@ -532,7 +532,7 @@
                         <i class="bi bi-telephone-fill text-success fs-1 mb-3"></i>
                         <h5>Telepon</h5>
                         <p class="mb-2">
-                            <a href="tel:+62921123456">(0921) 123-456</a>
+                            <a href="tel:+62921123456">-</a>
                         </p>
                         <p class="small text-muted">Senin - Jumat, 08:00 - 16:00 WIT</p>
                     </div>
@@ -543,12 +543,12 @@
                         <i class="bi bi-whatsapp text-success fs-1 mb-3"></i>
                         <h5>WhatsApp</h5>
                         <p class="mb-2">
-                            <a href="https://wa.me/62921123456" target="_blank">+62 921-123-456</a>
+                            <a href="https://wa.me/62921123456" target="_blank">-</a>
                         </p>
                         <p class="small text-muted">Respon cepat di jam kerja</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
             <div class="row mt-4">
